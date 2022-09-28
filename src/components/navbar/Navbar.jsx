@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="fixed w-full h-[116px] bg-gradient-to-t from-orange-300 ia-yellow-500 to-yellow-200">
+    <div className="fixed w-full h-[120px] bg-gradient-to-t from-orange-300 ia-yellow-500 to-yellow-200 py-1">
       <Link href="/">
         <div className="flex justify-center">
           <img
@@ -15,7 +15,7 @@ const Navbar = () => {
         </div>
       </Link>
 
-      <div className="py-3 shadow-sm shadow-gray-800 bg-zinc-500 text-white">
+      <div className="py-3 shadow-sm hadow-gray-800 bg-zinc-500 text-white border-double border-y-4 border-orange-300">
         <ul className="text-2xl flex justify-evenly font-semibold max-w-[85%] mx-auto">
           <Link href="/">
             <li className="cursor-pointer hover:-rotate-3 hover:scale-105 ease-in duration-100">
