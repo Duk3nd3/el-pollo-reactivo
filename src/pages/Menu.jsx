@@ -1,11 +1,11 @@
 import React from "react";
 
-const Nosotros = () => {
+const Menu = () => {
   return (
     <div className="w-full h-screen bg-yellow-100 flex justify-center items-center">
-      Nosotros
+      Menu
     </div>
   );
 };
 
-export default Nosotros;
+export default Menu;
