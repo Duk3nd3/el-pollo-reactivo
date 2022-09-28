@@ -23,7 +23,7 @@ const Navbar = () => {
             </li>
           </Link>
           <Link to="/menu">
-            <li className="cursor-pointer hover:-rotate-3 hover:scale-105 ease-in duration-100">
+            <li className="cursor-pointer hover:rotate-3 hover:scale-105 ease-in duration-100">
               Menu
             </li>
           </Link>
@@ -33,7 +33,7 @@ const Navbar = () => {
             </li>
           </Link>
           <Link to="/contacto">
-            <li className="cursor-pointer hover:-rotate-3 hover:scale-105 ease-in duration-100">
+            <li className="cursor-pointer hover:rotate-3 hover:scale-105 ease-in duration-100">
               Contacto
             </li>
           </Link>
