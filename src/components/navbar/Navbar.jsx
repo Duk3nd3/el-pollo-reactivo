@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <div className="fixed w-full h-[124px] bg-gradient-to-t from-orange-300 ia-yellow-500 to-yellow-200 py-1">
-      <Link href="/">
+      <Link to="/">
         <div className="flex justify-center">
           <img
             src="/img/pollo-comilon-header.png"
