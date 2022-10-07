@@ -135,7 +135,7 @@ const carta = [
 const Menu = () => {
   return (
     <div className="w-full h-screen pt-[220px]">
-      <ul className="max-w-[85%] h-screen mx-auto flex justify-center flex-wrap  gap-5 ">
+      <ul className="max-w-[85%] mx-auto flex justify-center flex-wrap gap-5">
         {carta.map((item, i) => (
           <MenuCard item={item} key={i} />
         ))}

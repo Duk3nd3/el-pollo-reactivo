@@ -2,6 +2,7 @@ import React from "react";
 import MenuCard from "../components/menu/MenuCard";
 
 import { TiArrowLeft, TiArrowRight } from "react-icons/ti";
+import { Link } from "react-router-dom";
 
 const carta2 = [
   {
@@ -137,12 +138,14 @@ const carta2 = [
 const Menu2 = () => {
   return (
     <div className="w-full h-screen pt-[180px]">
-      <div className="flex flex-col gap-10 items-center tracking-widest my-20 text-3xl">
+      <div className="flex flex-col gap-10 items-center tracking-widest my-16 text-3xl">
         <div className="flex items-center gap-5">
           <TiArrowRight className="text-orange-600 text-3xl " />
-          <h2 className="uppercase  font-bold text-zinc-700 hover:scale-105 hover:cursor-pointer ease-in duration-200 underline">
-            Arma tu propio menú
-          </h2>
+          <Link to="/menuPersonalizado">
+            <h2 className="uppercase  font-bold text-zinc-700 hover:scale-105 hover:cursor-pointer ease-in duration-200 underline">
+              Arma tu propio menú
+            </h2>
+          </Link>
           <TiArrowLeft className="text-orange-600 text-3xl " />
         </div>
         <p className=" font-semibold text-zinc-700">o</p>
