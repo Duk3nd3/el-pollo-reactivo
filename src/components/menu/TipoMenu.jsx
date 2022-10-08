@@ -8,10 +8,10 @@ const TipoMenu = ({
   setPreparacionSeleccionada,
   setGuarnicionSeleccionada,
 }) => {
-  const handleTipo = (tipo) => {
+  const handleTipoMenu = (tipo) => {
     setTipoMenuSeleccionado(tipo);
-    setGuarnicionSeleccionada("");
     setPreparacionSeleccionada("");
+    setGuarnicionSeleccionada("");
   };
 
   return (
@@ -23,7 +23,7 @@ const TipoMenu = ({
       <div className="w-full h-full flex justify-center flex-wrap gap-5">
         <div>
           <div
-            onClick={() => handleTipo("pollo")}
+            onClick={() => handleTipoMenu("pollo")}
             className={`w-44 h-44 rounded-full border-2 border-orange-400 flex justify-center items-center my-2 shadow-md shadow-gray-500 hover:scale-105 ease-in duration-200 hover:ring ring-red-700 hover:cursor-pointer bg-white ${
               tipoMenuSeleccionado === "pollo" ? "ring" : ""
             }`}
@@ -36,7 +36,7 @@ const TipoMenu = ({
         </div>
         <div>
           <div
-            onClick={() => handleTipo("ternera")}
+            onClick={() => handleTipoMenu("ternera")}
             className={`w-44 h-44 rounded-full border-2 border-orange-400 flex justify-center items-center my-2 shadow-md shadow-gray-500 hover:scale-105 ease-in duration-200 hover:ring ring-red-700 hover:cursor-pointer bg-white ${
               tipoMenuSeleccionado === "ternera" ? "ring" : ""
             }`}
@@ -49,7 +49,7 @@ const TipoMenu = ({
         </div>
         <div>
           <div
-            onClick={() => handleTipo("pescado")}
+            onClick={() => handleTipoMenu("pescado")}
             className={`w-44 h-44 rounded-full border-2 border-orange-400 flex justify-center items-center my-2 shadow-md shadow-gray-500 hover:scale-105 ease-in duration-200 hover:ring ring-red-700 hover:cursor-pointer bg-white ${
               tipoMenuSeleccionado === "pescado" ? "ring" : ""
             }`}
@@ -62,7 +62,7 @@ const TipoMenu = ({
         </div>
         <div>
           <div
-            onClick={() => handleTipo("pasta")}
+            onClick={() => handleTipoMenu("pasta")}
             className={`w-44 h-44 rounded-full border-2 border-orange-400 flex justify-center items-center my-2 shadow-md shadow-gray-500 hover:scale-105 ease-in duration-200 hover:ring ring-red-700 hover:cursor-pointer bg-white ${
               tipoMenuSeleccionado === "pasta" ? "ring" : ""
             }`}
