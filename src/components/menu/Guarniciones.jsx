@@ -4,16 +4,11 @@ const Guarniciones = ({
   guarnicion,
   guarnicionSeleccionada,
   setGuarnicionSeleccionada,
-  setMenuPersonalizadoCorrecto,
 }) => {
-  const handleGuarnicion = (guarnicion) => {
-    setGuarnicionSeleccionada(guarnicion);
-    setMenuPersonalizadoCorrecto(true);
-  };
   return (
     <div className="text-center">
       <div
-        onClick={() => handleGuarnicion(guarnicion)}
+        onClick={() => setGuarnicionSeleccionada(guarnicion)}
         className={`w-44 h-44 rounded-full border-2 border-orange-400 flex justify-center items-center my-2 shadow-md shadow-gray-500 hover:ring ring-red-700 hover:cursor-pointer bg-white ${
           guarnicionSeleccionada.nombre === guarnicion.nombre ? "ring" : ""
         }`}
