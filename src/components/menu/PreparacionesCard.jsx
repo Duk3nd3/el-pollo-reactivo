@@ -2,23 +2,11 @@ const PreparacionesCard = ({
   preparacion,
   preparacionSeleccionada,
   setPreparacionSeleccionada,
-  guarnicionSeleccionada,
   setGuarnicionSeleccionada,
-  setMenuPersonalizadoCorrecto,
 }) => {
   const handlePreparacion = (preparacion) => {
     setPreparacionSeleccionada(preparacion);
-    if (
-      preparacion === "cazuela de pollo" ||
-      preparacion === "pastel de papa" ||
-      preparacion === "sandwich de milanesa"
-    ) {
-      setGuarnicionSeleccionada("");
-    } else if (guarnicionSeleccionada === "") {
-      setMenuPersonalizadoCorrecto(false);
-      return;
-    }
-    setMenuPersonalizadoCorrecto(true);
+    setGuarnicionSeleccionada("");
   };
 
   return (
