@@ -56,7 +56,6 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -70,15 +69,6 @@ function App() {
         />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/contacto" element={<Contacto />} />
-        {/* <Route
-          path="/menuPersonalizado"
-          element={
-            <MenuPersonalizado
-              preparaciones={preparaciones}
-              guarniciones={guarniciones}
-            />
-          }
-        /> */}
       </Routes>
     </BrowserRouter>
   );
