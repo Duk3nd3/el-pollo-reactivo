@@ -3,7 +3,6 @@ import React from "react";
 const MenuPersonalizadoCard = ({
   preparacionSeleccionada,
   guarnicionSeleccionada = "",
-  tipoMenuSeleccionado,
 }) => {
   return (
     <>
@@ -34,29 +33,26 @@ const MenuPersonalizadoCard = ({
           </h3>
         </div>
 
-        {tipoMenuSeleccionado !== "pasta" &&
-          preparacionSeleccionada.nombre !== "pastel de papa" &&
-          preparacionSeleccionada.nombre !== "cazuela de pollo" &&
-          preparacionSeleccionada.nombre !== "sandwich de milanesa" && (
-            <>
-              <p className="text-5xl text-zinc-700 font-bold">+</p>
-              <div className="flex justify-center gap-5">
-                <div className="text-center">
-                  <div className="w-52 h-52 rounded-full border-2 border-orange-400 flex justify-center items-center shadow-md shadow-gray-500  bg-white">
-                    <div className="w-48 h-48 rounded-full border-2 border-orange-300 flex justify-center items-center overflow-hidden text-center">
-                      <img
-                        src={`/img/${guarnicionSeleccionada.nombre}.jpg`}
-                        alt={guarnicionSeleccionada.monbre}
-                      />
-                    </div>
+        {guarnicionSeleccionada !== "" && (
+          <>
+            <p className="text-5xl text-zinc-700 font-bold">+</p>
+            <div className="flex justify-center gap-5">
+              <div className="text-center">
+                <div className="w-52 h-52 rounded-full border-2 border-orange-400 flex justify-center items-center shadow-md shadow-gray-500  bg-white">
+                  <div className="w-48 h-48 rounded-full border-2 border-orange-300 flex justify-center items-center overflow-hidden text-center">
+                    <img
+                      src={`/img/${guarnicionSeleccionada.nombre}.jpg`}
+                      alt={guarnicionSeleccionada.monbre}
+                    />
                   </div>
-                  <h3 className="capitalize font-semibold pt-2">
-                    {guarnicionSeleccionada.nombre}
-                  </h3>
                 </div>
+                <h3 className="capitalize font-semibold pt-2">
+                  {guarnicionSeleccionada.nombre}
+                </h3>
               </div>
-            </>
-          )}
+            </div>
+          </>
+        )}
       </div>
       <button className="px-5 py-3 bg-red-700 rounded-md mb-10 text-white shadow-md shadow-gray-600">
         Agregar al carrito
