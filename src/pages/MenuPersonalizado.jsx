@@ -9,8 +9,6 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
   const [tipoMenuSeleccionado, setTipoMenuSeleccionado] = useState("");
   const [preparacionSeleccionada, setPreparacionSeleccionada] = useState("");
   const [guarnicionSeleccionada, setGuarnicionSeleccionada] = useState("");
-  const [menuPersonalizadoCorrecto, setMenuPersonalizadoCorrecto] =
-    useState(false);
 
   return (
     <div className="pt-[180px]">
@@ -38,10 +36,8 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
                 ?.map((preparacion, i) => (
                   <PreparacionesCard
                     preparacion={preparacion}
-                    setPreparacionSeleccionada={setPreparacionSeleccionada}
                     preparacionSeleccionada={preparacionSeleccionada}
-                    setMenuPersonalizadoCorrecto={setMenuPersonalizadoCorrecto}
-                    guarnicionSeleccionada={guarnicionSeleccionada}
+                    setPreparacionSeleccionada={setPreparacionSeleccionada}
                     setGuarnicionSeleccionada={setGuarnicionSeleccionada}
                     key={i}
                   />
@@ -50,11 +46,10 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
           </>
         )}
         {preparacionSeleccionada !== "" &&
-          preparacionSeleccionada.nombre !== "cazuela de pollo" &&
-          preparacionSeleccionada.nombre !== "sandwich de milanesa" &&
+          tipoMenuSeleccionado !== "pasta" &&
           preparacionSeleccionada.nombre !== "pastel de papa" &&
-          tipoMenuSeleccionado !== "" &&
-          tipoMenuSeleccionado !== "pasta" && (
+          preparacionSeleccionada.nombre !== "cazuela de pollo" &&
+          preparacionSeleccionada.nombre !== "sandwich de milanesa" && (
             <>
               <h3 className="font-semibold text-zinc-700 text-3xl py-6">
                 Elige una guarnicion
@@ -65,20 +60,23 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
                     guarnicion={guarnicion}
                     setGuarnicionSeleccionada={setGuarnicionSeleccionada}
                     guarnicionSeleccionada={guarnicionSeleccionada}
-                    setMenuPersonalizadoCorrecto={setMenuPersonalizadoCorrecto}
                     key={i}
                   />
                 ))}
               </ul>
             </>
           )}
-        {menuPersonalizadoCorrecto && (
-          <MenuPersonalizadoCard
-            preparacionSeleccionada={preparacionSeleccionada}
-            guarnicionSeleccionada={guarnicionSeleccionada}
-            tipoMenuSeleccionado={tipoMenuSeleccionado}
-          />
-        )}
+        {preparacionSeleccionada !== "" &&
+          (guarnicionSeleccionada !== "" ||
+            preparacionSeleccionada.nombre === "pastel de papa" ||
+            preparacionSeleccionada.nombre === "cazuela de pollo" ||
+            preparacionSeleccionada.nombre === "sandwich de milanesa" ||
+            preparacionSeleccionada.categoria === "pasta") && (
+            <MenuPersonalizadoCard
+              preparacionSeleccionada={preparacionSeleccionada}
+              guarnicionSeleccionada={guarnicionSeleccionada}
+            />
+          )}
       </div>
     </div>
   );
