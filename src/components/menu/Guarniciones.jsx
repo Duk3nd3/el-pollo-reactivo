@@ -4,11 +4,17 @@ const Guarniciones = ({
   guarnicion,
   guarnicionSeleccionada,
   setGuarnicionSeleccionada,
+  handleRef,
 }) => {
+  const handleGuarnicion = (guarnicion) => {
+    setGuarnicionSeleccionada(guarnicion);
+    handleRef("menu");
+  };
+
   return (
-    <div className="text-center">
+    <li className="flex flex-col items-center">
       <div
-        onClick={() => setGuarnicionSeleccionada(guarnicion)}
+        onClick={() => handleGuarnicion(guarnicion)}
         className={`w-44 h-44 rounded-full border-2 border-orange-400 flex justify-center items-center my-2 shadow-md shadow-gray-500 hover:ring ring-red-700 hover:cursor-pointer bg-white ${
           guarnicionSeleccionada.nombre === guarnicion.nombre ? "ring" : ""
         }`}
@@ -18,7 +24,7 @@ const Guarniciones = ({
         </div>
       </div>
       <h3 className="capitalize font-semibold">{guarnicion.nombre}</h3>
-    </div>
+    </li>
   );
 };
 
