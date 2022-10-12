@@ -14,6 +14,24 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
   const [preparacionSeleccionada, setPreparacionSeleccionada] = useState("");
   const [guarnicionSeleccionada, setGuarnicionSeleccionada] = useState("");
 
+  const handleTipoMenu = (tipo) => {
+    setTipoMenuSeleccionado(tipo);
+    setPreparacionSeleccionada("");
+    setGuarnicionSeleccionada("");
+    handleRef("preparacion");
+  };
+
+  const handlePreparacion = (preparacion) => {
+    setPreparacionSeleccionada(preparacion);
+    setGuarnicionSeleccionada("");
+    handleRef("guarnicion", preparacion.nombre);
+  };
+
+  const handleGuarnicion = (guarnicion) => {
+    setGuarnicionSeleccionada(guarnicion);
+    handleRef("menu");
+  };
+
   const handleRef = (seccion, tipoPreparacion = "") => {
     if (seccion === "preparacion") {
       moveIntoView(preparacionRef);
@@ -43,15 +61,13 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
 
   return (
     <div className="h-screen">
-      <h2 className="uppercase font-bold text-red-600 text-4xl pt-[220px] pb-14 text-center ">
+      <h2 className="uppercase font-bold text-red-600 text-xl sm:text-2xl xl:text-4xl pt-[240px] text-center ">
         Armá tu Menú como quieras
       </h2>
-      <div id="tipo">
+      <div id="tipo" className="mt-10">
         <TipoMenu
-          setTipoMenuSeleccionado={setTipoMenuSeleccionado}
           tipoMenuSeleccionado={tipoMenuSeleccionado}
-          setPreparacionSeleccionada={setPreparacionSeleccionada}
-          setGuarnicionSeleccionada={setGuarnicionSeleccionada}
+          handleTipoMenu={handleTipoMenu}
           handleRef={handleRef}
         />
       </div>
@@ -59,23 +75,21 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
         <div
           ref={preparacionRef}
           id="preparacion"
-          className="w-full max-w-[85%] m-auto flex flex-col justify-start items-center"
+          className="max-w-[95%] xl:max-w-[80%] m-auto flex flex-col justify-start items-center mt-16"
         >
-          <h3 className="font-semibold text-zinc-700 text-3xl pb-6 pt-3 text-center">
+          <h3 className="font-semibold text-zinc-700 text-xl sm:text-2xl xl:text-3xl pb-6 pt-3 text-center">
             {`Como quieres que preparemos tu `}
             <span className="font-bold capitalize">{tipoMenuSeleccionado}</span>
           </h3>
-          <ul className="max-w-[85%] m-auto flex justify-center flex-wrap gap-5 pb-10">
+          <ul className="flex justify-center flex-wrap gap-2 sm:gap-3 lg:gap-4 xl:gap-5 pb-10">
             {preparaciones
               ?.filter((item) => item.categoria == tipoMenuSeleccionado)
               ?.map((preparacion, i) => (
                 <PreparacionesCard
                   preparacion={preparacion}
                   preparacionSeleccionada={preparacionSeleccionada}
-                  setPreparacionSeleccionada={setPreparacionSeleccionada}
-                  setGuarnicionSeleccionada={setGuarnicionSeleccionada}
-                  handleRef={handleRef}
-                  key={i}
+                  handlePreparacion={handlePreparacion}
+                  key={preparacion.id}
                 />
               ))}
           </ul>
@@ -89,19 +103,18 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
         preparacionSeleccionada.nombre !== "sandwich de milanesa" && (
           <div
             ref={guarnicionRef}
-            className="w-full max-w-[85%] m-auto flex flex-col justify-start items-center"
+            className="max-w-[95%] xl:max-w-[80%] m-auto flex flex-col justify-start items-center mt-16"
           >
-            <h3 className="font-semibold text-zinc-700 text-3xl py-6">
+            <h3 className="font-semibold text-zinc-700 text-xl sm:text-2xl xl:text-3xl pb-6">
               Elige una guarnicion
             </h3>
-            <ul className="max-w-[85%] mx-auto flex justify-center flex-wrap gap-5 pb-10">
+            <ul className="flex justify-center flex-wrap gap-2 sm:gap-3 lg:gap-4 xl:gap-5 pb-10">
               {guarniciones?.map((guarnicion, i) => (
                 <Guarniciones
                   guarnicion={guarnicion}
-                  setGuarnicionSeleccionada={setGuarnicionSeleccionada}
                   guarnicionSeleccionada={guarnicionSeleccionada}
-                  handleRef={handleRef}
-                  key={i}
+                  handleGuarnicion={handleGuarnicion}
+                  key={guarnicion.id}
                 />
               ))}
             </ul>
@@ -115,12 +128,15 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
           preparacionSeleccionada.categoria === "pasta") && (
           <div
             ref={menuRef}
-            className="w-full max-w-[85%] m-auto flex flex-col justify-start items-center"
+            className="w-full max-w-[95%] m-auto flex flex-col justify-start items-center mt-10"
           >
             <MenuPersonalizadoCard
               preparacionSeleccionada={preparacionSeleccionada}
               guarnicionSeleccionada={guarnicionSeleccionada}
             />
+            <button className="px-5 py-3 bg-red-700 rounded-md mb-10 text-white shadow-md shadow-gray-600">
+              Agregar al carrito
+            </button>
           </div>
         )}
     </div>
