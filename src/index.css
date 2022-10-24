@@ -3,5 +3,5 @@
 @import "tailwindcss/utilities";
 
 body {
-  @apply bg-yellow-50;
+  @apply bg-gradient-to-l from-zinc-200 via-zinc-100 to-zinc-200;
 }
