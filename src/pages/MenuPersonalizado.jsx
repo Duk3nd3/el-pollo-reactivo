@@ -60,8 +60,8 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
   };
 
   return (
-    <div className="h-screen">
-      <h2 className="uppercase font-bold text-red-600 text-xl sm:text-2xl xl:text-4xl pt-[240px] text-center ">
+    <div className="h-screen bg-fondo ">
+      <h2 className="uppercase font-bold text-red-600 text-xl sm:text-2xl xl:text-4xl pt-[240px] text-center tracking-widest">
         Armá tu Menú como quieras
       </h2>
       <div id="tipo" className="mt-10">
@@ -77,9 +77,11 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
           id="preparacion"
           className="max-w-[95%] xl:max-w-[80%] m-auto flex flex-col justify-start items-center mt-16"
         >
-          <h3 className="font-semibold text-zinc-700 text-xl sm:text-2xl xl:text-3xl pb-6 pt-3 text-center">
+          <h3 className="font-semibold text-zinc-800 text-xl sm:text-2xl xl:text-3xl pb-6 pt-3 text-center tracking-widest">
             {`Como quieres que preparemos tu `}
-            <span className="font-bold capitalize">{tipoMenuSeleccionado}</span>
+            <span className="font-bold text-red-600 capitalize">
+              {tipoMenuSeleccionado}
+            </span>
           </h3>
           <ul className="flex justify-center flex-wrap gap-2 sm:gap-3 lg:gap-4 xl:gap-5 pb-10">
             {preparaciones
@@ -105,7 +107,7 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
             ref={guarnicionRef}
             className="max-w-[95%] xl:max-w-[80%] m-auto flex flex-col justify-start items-center mt-16"
           >
-            <h3 className="font-semibold text-zinc-700 text-xl sm:text-2xl xl:text-3xl pb-6">
+            <h3 className="font-semibold text-zinc-800 text-xl sm:text-2xl xl:text-3xl pb-6 tracking-widest">
               Elige una guarnicion
             </h3>
             <ul className="flex justify-center flex-wrap gap-2 sm:gap-3 lg:gap-4 xl:gap-5 pb-10">

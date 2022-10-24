@@ -4,7 +4,7 @@ import { FaFish } from "react-icons/fa";
 const TipoMenu = ({ tipoMenuSeleccionado, handleTipoMenu }) => {
   return (
     <div className="max-w-[90%] m-auto flex flex-col justify-center items-center">
-      <h3 className="font-semibold text-zinc-700 text-xl sm:text-2xl xl:text-3xl pb-6 xl:pt-10">
+      <h3 className="font-semibold text-zinc-700 text-xl sm:text-2xl xl:text-3xl pb-6 xl:pt-10 tracking-widest">
         Elije tu ingrediente principal
       </h3>
 
@@ -12,11 +12,11 @@ const TipoMenu = ({ tipoMenuSeleccionado, handleTipoMenu }) => {
         <div>
           <div
             onClick={() => handleTipoMenu("pollo")}
-            className={`mb-2 w-32 h-32 sm:w-36 sm:h-36 xl:w-44 xl:h-44 rounded-full border-2 border-orange-400 flex justify-center items-center shadow-md shadow-gray-500 hover:scale-105 ease-in duration-200 hover:ring ring-red-700 hover:cursor-pointer bg-white ${
-              tipoMenuSeleccionado === "pollo" ? "ring" : ""
+            className={`mb-2 w-32 h-32 sm:w-36 sm:h-36 xl:w-44 xl:h-44 rounded-full border-2 border-orange-400 flex justify-center items-center shadow-md shadow-gray-500 hover:scale-105 ease-in duration-200 hover:border-double hover:border-8 hover:cursor-pointer bg-white ${
+              tipoMenuSeleccionado === "pollo" ? "border-8 border-double" : ""
             }`}
           >
-            <div className="w-28 h-28 sm:w-32 sm:h-32 xl:w-40 xl:h-40 rounded-full border-2 border-orange-300 flex justify-center items-center">
+            <div className="w-28 h-28 sm:w-32 sm:h-32 xl:w-40 xl:h-40 rounded-full border-2 border-orange-300 flex justify-center items-center ">
               <GiChickenOven className="text-yellow-700 text-7xl xl:text-8xl" />
             </div>
           </div>
@@ -26,8 +26,8 @@ const TipoMenu = ({ tipoMenuSeleccionado, handleTipoMenu }) => {
         <div>
           <div
             onClick={() => handleTipoMenu("ternera")}
-            className={`mb-2 w-32 h-32 sm:w-36 sm:h-36 xl:w-44 xl:h-44 rounded-full border-2 border-orange-400 flex justify-center items-center shadow-md shadow-gray-500 hover:scale-105 ease-in duration-200 hover:ring ring-red-700 hover:cursor-pointer bg-white ${
-              tipoMenuSeleccionado === "ternera" ? "ring" : ""
+            className={`mb-2 w-32 h-32 sm:w-36 sm:h-36 xl:w-44 xl:h-44 rounded-full border-2 border-orange-400 flex justify-center items-center shadow-md shadow-gray-500 hover:scale-105 ease-in duration-200 hover:border-double hover:border-8 hover:cursor-pointer bg-white ${
+              tipoMenuSeleccionado === "ternera" ? "border-8 border-double" : ""
             }`}
           >
             <div className="w-28 h-28 sm:w-32 sm:h-32 xl:w-40 xl:h-40 rounded-full border-2 border-orange-300 flex justify-center items-center">
@@ -40,8 +40,8 @@ const TipoMenu = ({ tipoMenuSeleccionado, handleTipoMenu }) => {
         <div>
           <div
             onClick={() => handleTipoMenu("pescado")}
-            className={`mb-2 w-32 h-32 sm:w-36 sm:h-36 xl:w-44 xl:h-44 rounded-full border-2 border-orange-400 flex justify-center items-center shadow-md shadow-gray-500 hover:scale-105 ease-in duration-200 hover:ring ring-red-700 hover:cursor-pointer bg-white ${
-              tipoMenuSeleccionado === "pescado" ? "ring" : ""
+            className={`mb-2 w-32 h-32 sm:w-36 sm:h-36 xl:w-44 xl:h-44 rounded-full border-2 border-orange-400 flex justify-center items-center shadow-md shadow-gray-500 hover:scale-105 ease-in duration-150 hover:border-double hover:border-8 hover:cursor-pointer bg-white ${
+              tipoMenuSeleccionado === "pescado" ? "border-8 border-double" : ""
             }`}
           >
             <div className="w-28 h-28 sm:w-32 sm:h-32 xl:w-40 xl:h-40 rounded-full border-2 border-orange-300 flex justify-center items-center">
@@ -54,8 +54,8 @@ const TipoMenu = ({ tipoMenuSeleccionado, handleTipoMenu }) => {
         <div>
           <div
             onClick={() => handleTipoMenu("pasta")}
-            className={`mb-2 w-32 h-32 sm:w-36 sm:h-36 xl:w-44 xl:h-44 rounded-full border-2 border-orange-400 flex justify-center items-center shadow-md shadow-gray-500 hover:scale-105 ease-in duration-200 hover:ring ring-red-700 hover:cursor-pointer bg-white ${
-              tipoMenuSeleccionado === "pasta" ? "ring" : ""
+            className={`mb-2 w-32 h-32 sm:w-36 sm:h-36 xl:w-44 xl:h-44 rounded-full border-2 border-orange-400 flex justify-center items-center shadow-md shadow-gray-500 hover:scale-105 ease-in duration-200 hover:border-double hover:border-8 hover:cursor-pointer bg-white ${
+              tipoMenuSeleccionado === "pasta" ? "border-8 border-double" : ""
             }`}
           >
             <div className="w-28 h-28 sm:w-32 sm:h-32 xl:w-40 xl:h-40 rounded-full border-2 border-orange-300 flex justify-center items-center">
