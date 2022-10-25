@@ -1,25 +1,28 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {
-  collection,
-  // doc,
-  query,
-  onSnapshot,
-  // getDocs,
-} from "firebase/firestore";
+import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "./firebase";
+import { AuthProvider } from "./hooks/authContext";
 
-import Navbar from "./components/navbar/Navbar";
+import NavBarHeader from "./components/navbar/NavBarHeader";
 import Home from "./pages/Home";
-// import Menu from "./pages/Menu";
-// import Menu2 from "./pages/Menu2";
 import Nosotros from "./pages/Nosotros";
 import Contacto from "./pages/Contacto";
 import MenuPersonalizado from "./pages/MenuPersonalizado";
+import RegistroLogin from "./pages/RegistroLogin";
 
 function App() {
+  const [modoRegLog, setmodoRegLog] = useState("registro");
   const [preparaciones, setPreparaciones] = useState([]);
   const [guarniciones, setGuarniciones] = useState([]);
+
+  const handleModoRegLog = (modo) => {
+    if (modo === "login") {
+      setmodoRegLog("login");
+    } else {
+      setmodoRegLog("registro");
+    }
+  };
 
   useEffect(() => {
     const q = query(collection(db, "preparaciones"));
@@ -55,21 +58,32 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/menu"
-          element={
-            <MenuPersonalizado
-              preparaciones={preparaciones}
-              guarniciones={guarniciones}
-            />
-          }
-        />
-        <Route path="/nosotros" element={<Nosotros />} />
-        <Route path="/contacto" element={<Contacto />} />
-      </Routes>
+      <AuthProvider>
+        <NavBarHeader handleModoRegLog={handleModoRegLog} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/menu"
+            element={
+              <MenuPersonalizado
+                preparaciones={preparaciones}
+                guarniciones={guarniciones}
+              />
+            }
+          />
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route
+            path="/registroLogin"
+            element={
+              <RegistroLogin
+                handleModoRegLog={handleModoRegLog}
+                modoRegLog={modoRegLog}
+              />
+            }
+          />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
