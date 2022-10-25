@@ -7,7 +7,7 @@ import Redes from "./Redes";
 import NavBarResponsive from "./NavBarResponsive";
 import HeaderResponsive from "./HeaderResponsive";
 
-const NavBarHeader = ({ setmodoRegLog }) => {
+const NavBarHeader = ({ handleModoRegLog }) => {
   const [nav, setNav] = useState(false);
   const navigate = useNavigate();
 
@@ -15,19 +15,10 @@ const NavBarHeader = ({ setmodoRegLog }) => {
     setNav(!nav);
   };
 
-  const handlemodoRegLog = (modo) => {
-    if (modo === "registro") {
-      setmodoRegLog("registro");
-    } else {
-      setmodoRegLog("login");
-    }
-    navigate("/RegistroLogin");
-  };
-
   return (
     <div className="fixed w-full h-[124px] z-[900] bg-gradient-to-t from-orange-300 to-yellow-200 py-1">
       <Header />
-      <NavBar2 handlemodoRegLog={handlemodoRegLog} handleNav={handleNav} />
+      <NavBar2 handleModoRegLog={handleModoRegLog} handleNav={handleNav} />
 
       {/* NavBar/Header responsive */}
       <div
