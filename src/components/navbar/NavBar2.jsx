@@ -6,7 +6,7 @@ import { useAuth } from "../../hooks/authContext";
 import UserMenu from "./UserMenu";
 import { useState } from "react";
 
-const NavBar2 = ({ handleNav, handlemodoRegLog }) => {
+const NavBar2 = ({ handleNav, handleModoRegLog }) => {
   const { user } = useAuth();
   const [navUserMenu, setNavUserMenu] = useState(false);
 
@@ -41,14 +41,14 @@ const NavBar2 = ({ handleNav, handlemodoRegLog }) => {
           {!user ? (
             <div className="flex gap-2 text-orange-200 underline">
               <button
-                onClick={() => handlemodoRegLog("login")}
+                onClick={() => handleModoRegLog("login")}
                 className="hover:scale-105 ease-in duration-100"
               >
                 Login
               </button>
               <p className="text-white">|</p>
               <button
-                onClick={() => handlemodoRegLog("registro")}
+                onClick={() => handleModoRegLog("registro")}
                 className="hover:scale-105 ease-in duration-100"
               >
                 Registrarse
