@@ -142,7 +142,6 @@ const MenuPersonalizado = ({ preparaciones, guarniciones }) => {
           </div>
         )}
     </div>
-    // </div>
   );
 };
 
