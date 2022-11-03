@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../../hooks/authContext";
+import { useAuth } from "../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
