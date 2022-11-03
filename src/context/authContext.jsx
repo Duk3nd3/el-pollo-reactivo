@@ -14,6 +14,7 @@ export const authContext = createContext();
 
 export const useAuth = () => {
   const context = useContext(authContext);
+  if (!context) throw new Error("There is no user provider");
   return context;
 };
 
