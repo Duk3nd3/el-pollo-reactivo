@@ -1,11 +1,14 @@
 import { GiChickenOven, GiMeat, GiNoodles } from "react-icons/gi";
 import { FaFish } from "react-icons/fa";
-import Plato from "./Plato";
+import Plato from "../Plato";
+import { useMenu } from "../../../context/menuContext";
 
-const TipoMenu = ({ tipoMenuSeleccionado, handleTipoMenu }) => {
+const TipoMenu = ({ handleTipoMenu }) => {
+  const { tipoMenuSeleccionado } = useMenu();
+
   return (
-    <div className="max-w-[90%] m-auto flex flex-col justify-center items-center">
-      <h3 className="font-semibold text-zinc-700 text-xl sm:text-2xl xl:text-3xl pb-6 xl:pt-10 tracking-widest text-center">
+    <div className="max-w-[90%] m-auto flex flex-col justify-center items-center t-[220px]">
+      <h3 className="font-bold text-red-600 text-xl sm:text-2xl xl:text-4xl pb-20 xl:pt-10 tracking-widest text-center">
         Elije tu ingrediente principal
       </h3>
 
