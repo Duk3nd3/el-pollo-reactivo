@@ -1,0 +1,206 @@
+import { createContext, useContext, useEffect, useState } from "react";
+import { cartContext } from "./cartContext";
+import { db } from "../firebase";
+import { collection, query, onSnapshot } from "firebase/firestore";
+
+export const menuContext = createContext();
+
+export const useMenu = () => {
+  const context = useContext(menuContext);
+  return context;
+};
+
+export function MenuProvider({ children }) {
+  const { addToCart } = useContext(cartContext);
+
+  const [menu, setMenu] = useState({
+    ingredientePrincipal: "",
+    guarnicion: "",
+    cantidad: 0,
+    precio: 0,
+    id: "",
+  });
+
+  useEffect(() => {
+    console.log(menu);
+  }, [menu]);
+
+  const [preparaciones, setPreparaciones] = useState([]);
+  const [guarniciones, setGuarniciones] = useState([]);
+  const [tipoDeComidas, setTipoDeComidas] = useState([]);
+  const [comidas, setComidas] = useState([]);
+
+  const [tipoDeComidaSeleccionada, setTipoDeComidaSeleccionada] = useState("");
+  const [tipoMenuSeleccionado, setTipoMenuSeleccionado] = useState("");
+  const [preparacionSeleccionada, setPreparacionSeleccionada] = useState("");
+  const [guarnicionSeleccionada, setGuarnicionSeleccionada] = useState("");
+
+  useEffect(() => {
+    const q = query(collection(db, "tipo de comidas"));
+    const unsubcribe = onSnapshot(
+      q,
+      (db,
+      (querySnapshot) => {
+        let comidasArray = [];
+        querySnapshot.forEach((doc) => {
+          comidasArray.push({ ...doc.data(), id: doc.id });
+        });
+        setComidas(comidasArray);
+      })
+    );
+    return () => unsubcribe();
+  }, []);
+
+  useEffect(() => {
+    const q = query(collection(db, "preparaciones"));
+    const unsubcribe = onSnapshot(
+      q,
+      (db,
+      (querySnapshot) => {
+        let preparacionesArray = [];
+        querySnapshot.forEach((doc) => {
+          preparacionesArray.push({ ...doc.data(), id: doc.id });
+        });
+        setPreparaciones(preparacionesArray);
+      })
+    );
+    return () => unsubcribe();
+  }, []);
+
+  useEffect(() => {
+    const q = query(collection(db, "tipo de comidas"));
+    const unsubcribe = onSnapshot(
+      q,
+      (db,
+      (querySnapshot) => {
+        let comidasArray = [];
+        querySnapshot.forEach((doc) => {
+          comidasArray.push({ ...doc.data(), id: doc.id });
+        });
+        setTipoDeComidas(comidasArray);
+      })
+    );
+    return () => unsubcribe();
+  }, []);
+
+  useEffect(() => {
+    const q = query(collection(db, "guarniciones"));
+    const unsubcribe = onSnapshot(
+      q,
+      (db,
+      (querySnapshot) => {
+        let guarnicionesArray = [];
+        querySnapshot.forEach((doc) => {
+          guarnicionesArray.push({ ...doc.data(), id: doc.id });
+        });
+        setGuarniciones(guarnicionesArray);
+      })
+    );
+    return () => unsubcribe();
+  }, []);
+
+  const inicializarMenu = () => {
+    setMenu({
+      ingredientePrincipal: "",
+      guarnicion: "",
+      cantidad: 0,
+      precio: 0,
+      id: "",
+    });
+    setTipoDeComidaSeleccionada("");
+    setTipoMenuSeleccionado("");
+    setPreparacionSeleccionada("");
+    setGuarnicionSeleccionada("");
+  };
+
+  const handleTipoMenuSeleccionado = (tipo) => {
+    setTipoMenuSeleccionado(tipo);
+    setPreparacionSeleccionada("");
+    setGuarnicionSeleccionada("");
+  };
+
+  const handlePreparacionSeleccionada = (preparacion) => {
+    console.log(preparacion);
+    setPreparacionSeleccionada(preparacion);
+    setMenu({
+      ...menu,
+      ingredientePrincipal: preparacion.nombre,
+      precio: preparacion.precio,
+      id: preparacion.id,
+    });
+    setGuarnicionSeleccionada("");
+  };
+
+  const handleGuarnicionSeleccionada = (guarnicion) => {
+    setGuarnicionSeleccionada(guarnicion);
+    setMenu({
+      ...menu,
+      guarnicion: guarnicion.nombre,
+      id: menu.id + guarnicion.id,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addToCart(menu);
+    setMenu({ ...menu, cantidad: 0 });
+    setMenu({
+      ingredientePrincipal: "",
+      guarnicion: "",
+      cantidad: 0,
+      precio: 0,
+      id: "",
+    });
+    setTipoMenuSeleccionado(" ");
+    setTipoDeComidaSeleccionada("");
+    setPreparacionSeleccionada("");
+    setGuarnicionSeleccionada("");
+  };
+
+  const handleTipoDeComidas = (tipoComida) => {
+    setTipoDeComidaSeleccionada(tipoComida);
+    if (tipoComida !== "menu personalizado") {
+      const preparacionTipoComida = comidas.filter(
+        (comida) => comida.nombre === tipoComida
+      );
+      setMenu({
+        ...menu,
+        ingredientePrincipal: preparacionTipoComida[0].nombre,
+        precio: preparacionTipoComida[0].precio,
+        id: preparacionTipoComida[0]?.id,
+      });
+    }
+  };
+
+  const moveIntoView = (ref) => {
+    setTimeout(() => {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+    }, 150);
+  };
+
+  return (
+    <menuContext.Provider
+      value={{
+        menu,
+        inicializarMenu,
+        setMenu,
+        handleSubmit,
+        handleTipoDeComidas,
+        handleTipoMenuSeleccionado,
+        handlePreparacionSeleccionada,
+        handleGuarnicionSeleccionada,
+        moveIntoView,
+        tipoDeComidas,
+        tipoDeComidaSeleccionada,
+        comidas,
+        preparaciones,
+        guarniciones,
+        tipoMenuSeleccionado,
+        preparacionSeleccionada,
+        guarnicionSeleccionada,
+      }}
+    >
+      {children}
+    </menuContext.Provider>
+  );
+}
