@@ -1,5 +1,3 @@
-import { useState } from "react";
-import Mensaje from "../components/Mensaje";
 import RedesRL from "../components/registroLogin/RedesRL";
 import RegisterForm from "../components/registroLogin/RegisterForm";
 import LoginForm from "../components/registroLogin/LoginForm";
@@ -7,9 +5,6 @@ import ImagenRegistro from "../components/registroLogin/ImagenRegistro";
 import ImagenLogin from "../components/registroLogin/ImagenLogin";
 
 export default function RegistroLogin({ handleModoRegLog, modoRegLog }) {
-  const [tipoError, setTipoError] = useState("");
-  const [mensaje, setMensaje] = useState("");
-
   return (
     <div className="w-full h-screen pt-[180px] flex items-center ">
       <main className="max-w-[95%] w-[850px] m-auto flex justify-center text-center rounded-md md:shadow-md md:shadow-zinc-500">
@@ -18,11 +13,7 @@ export default function RegistroLogin({ handleModoRegLog, modoRegLog }) {
             <h2 className="text-2xl font-semibold pt-3 pb-5 ">
               Créa tu Cuenta
             </h2>
-            {tipoError !== "" && (
-              <div className="my-5">
-                <Mensaje mensaje={mensaje} tipoError={tipoError} />
-              </div>
-            )}
+
             {modoRegLog === "registro" ? <RegisterForm /> : <LoginForm />}
 
             <p className="text-zinc-500 pb-3">
