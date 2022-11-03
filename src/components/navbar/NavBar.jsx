@@ -1,14 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineLocalGroceryStore } from "react-icons/md";
 import { AiOutlineMenu } from "react-icons/ai";
 import { FaUserAlt } from "react-icons/fa";
-import { useAuth } from "../../hooks/authContext";
+import { useAuth } from "../../context/authContext";
+import { useCart } from "../../context/cartContext";
 import UserMenu from "./UserMenu";
 import { useState } from "react";
 
-const NavBar2 = ({ handleNav, handleModoRegLog }) => {
+const NavBar = ({ handleNav, handleModoRegLog }) => {
+  const navigate = useNavigate();
+
   const { user } = useAuth();
+  const { cart } = useCart();
+
   const [navUserMenu, setNavUserMenu] = useState(false);
+
+  const handleRegLog = (modo) => {
+    handleModoRegLog(modo);
+    navigate("/registroLogin");
+  };
 
   return (
     <div className="w-full py-2.5 shadow-sm bg-zinc-600 text-white border-double border-y-4 border-orange-300">
@@ -41,14 +51,14 @@ const NavBar2 = ({ handleNav, handleModoRegLog }) => {
           {!user ? (
             <div className="flex gap-2 text-orange-200 underline">
               <button
-                onClick={() => handleModoRegLog("login")}
+                onClick={() => handleRegLog("login")}
                 className="hover:scale-105 ease-in duration-100"
               >
                 Login
               </button>
               <p className="text-white">|</p>
               <button
-                onClick={() => handleModoRegLog("registro")}
+                onClick={() => handleRegLog("registro")}
                 className="hover:scale-105 ease-in duration-100"
               >
                 Registrarse
@@ -71,11 +81,16 @@ const NavBar2 = ({ handleNav, handleModoRegLog }) => {
 
           {/* boton carrito */}
           <div className="flex gap-2">
-            <Link to="/carrito">
-              <MdOutlineLocalGroceryStore
-                size="32px"
-                className="text-orange-300 relative hover:rotate-3 hover:scale-110 ease-in duration-200"
-              />
+            <Link to="/carritoCompras">
+              <div className="relative flex justify-between">
+                <MdOutlineLocalGroceryStore
+                  size="32px"
+                  className="text-orange-300 relative hover:rotate-3 hover:scale-110 ease-in duration-200"
+                />
+                <span className="w-fit h-fit px-1 text-white text-xs font-semibold bg-red-500 rounded-full">
+                  {cart.length}
+                </span>
+              </div>
             </Link>
 
             {/* boton menu responsive */}
@@ -92,4 +107,4 @@ const NavBar2 = ({ handleNav, handleModoRegLog }) => {
   );
 };
 
-export default NavBar2;
+export default NavBar;
