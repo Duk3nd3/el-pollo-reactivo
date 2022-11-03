@@ -1,12 +1,13 @@
-import Plato from "./Plato";
+import { useMenu } from "../../../context/menuContext";
+import Cantidad from "../Cantidad";
+import Plato from "../Plato";
 
-const MenuPersonalizadoCard = ({
-  preparacionSeleccionada,
-  guarnicionSeleccionada = "",
-}) => {
+const MenuPersonalizadoCard = () => {
+  const { guarnicionSeleccionada, preparacionSeleccionada } = useMenu();
+
   return (
-    <>
-      <h3 className="font-semibold text-zinc-800 text-center text-xl sm:text-2xl xl:text-3xl py-6 tracking-widest">
+    <div className="mb-5">
+      <h3 className="font-semibold text-zinc-800 text-center text-xl sm:text-2xl xl:text-3xl py-6 tracking-widest pb-20">
         El menú seleccionado es:{" "}
         <span className="font-bold text-red-600 capitalize">
           {preparacionSeleccionada.nombre}
@@ -19,7 +20,7 @@ const MenuPersonalizadoCard = ({
         )}
       </h3>
 
-      <div className="flex justify-center items-center gap-5 mb-10">
+      <div className="flex justify-center items-center gap-5 mb-4">
         <div className="text-center">
           <Plato
             imagen={
@@ -50,7 +51,9 @@ const MenuPersonalizadoCard = ({
           </div>
         )}
       </div>
-    </>
+      <p className="text-red-600 font-semibold">Selecciona una cantidad</p>
+      <Cantidad />
+    </div>
   );
 };
 
