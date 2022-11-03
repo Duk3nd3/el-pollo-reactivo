@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import NavBar2 from "./NavBar2";
+import NavBar from "./NavBar";
 import Header from "./Header";
 import Redes from "./Redes";
 import NavBarResponsive from "./NavBarResponsive";
@@ -18,7 +18,7 @@ const NavBarHeader = ({ handleModoRegLog }) => {
   return (
     <div className="fixed w-full h-[124px] z-[900] bg-gradient-to-t from-orange-300 to-yellow-200 py-1">
       <Header />
-      <NavBar2 handleModoRegLog={handleModoRegLog} handleNav={handleNav} />
+      <NavBar handleModoRegLog={handleModoRegLog} handleNav={handleNav} />
 
       {/* NavBar/Header responsive */}
       <div
