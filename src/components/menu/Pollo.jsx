@@ -1,6 +1,5 @@
 import React from "react";
 import { useMenu } from "../../context/menuContext";
-import Cantidad from "./Cantidad";
 import Plato from "./Plato";
 import PorcionPollo from "./PorcionPollo";
 import SubmitCarritoButton from "./SubmitCarritoButton";
