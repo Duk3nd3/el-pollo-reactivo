@@ -1,6 +1,6 @@
 import React from "react";
 import { useMenu } from "../../../context/menuContext";
-import Guarniciones from "./Guarniciones";
+import GuarnicionCard from "./GuarnicionCard";
 
 const ListaGuarniciones = ({ handleGuarnicion }) => {
   const { guarniciones } = useMenu();
@@ -12,7 +12,7 @@ const ListaGuarniciones = ({ handleGuarnicion }) => {
       </h3>
       <ul className="flex justify-center flex-wrap gap-2 sm:gap-3 lg:gap-4 xl:gap-5 pb-10">
         {guarniciones?.map((guarnicion, i) => (
-          <Guarniciones
+          <GuarnicionCard
             guarnicion={guarnicion}
             handleGuarnicion={handleGuarnicion}
             key={guarnicion.id}
