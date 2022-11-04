@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMenu } from "../../context/menuContext";
 
-const Cantidad = ({ porcion }) => {
+const Cantidad = ({ porcion = 1 }) => {
   const { menu, setMenu } = useMenu();
   const [contador, setContador] = useState(0);
 
