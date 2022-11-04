@@ -1,8 +1,20 @@
 import { useMenu } from "../../../context/menuContext";
 import Plato from "../Plato";
 
-const Guarniciones = ({ guarnicion, handleGuarnicion }) => {
-  const { guarnicionSeleccionada } = useMenu();
+const GuarnicionCard = ({ guarnicion, handleGuarnicion }) => {
+  const {
+    guarnicionSeleccionada,
+    handleGuarnicionSeleccionada,
+    tipoDeComidaSeleccionada,
+  } = useMenu();
+
+  const handleClick = (guarnicion) => {
+    if (tipoDeComidaSeleccionada === "guarniciones") {
+      handleGuarnicionSeleccionada(guarnicion);
+    } else {
+      handleGuarnicion(guarnicion);
+    }
+  };
 
   return (
     <li className="flex flex-col items-center">
@@ -16,7 +28,7 @@ const Guarniciones = ({ guarnicion, handleGuarnicion }) => {
           }
           seleccion={guarnicionSeleccionada.nombre}
           nombre={guarnicion.nombre}
-          onClick={() => handleGuarnicion(guarnicion)}
+          onClick={() => handleClick(guarnicion)}
         />
       </div>
       <h3 className="font-semibold">{guarnicion.nombre}</h3>
@@ -24,4 +36,4 @@ const Guarniciones = ({ guarnicion, handleGuarnicion }) => {
   );
 };
 
-export default Guarniciones;
+export default GuarnicionCard;
