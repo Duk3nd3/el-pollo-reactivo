@@ -1,20 +1,19 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { collection, query, onSnapshot } from "firebase/firestore";
-import { db } from "./firebase";
-import { AuthProvider } from "./hooks/authContext";
+import { useState } from "react";
+import { AuthProvider } from "./context/authContext";
+import { CartProvider } from "./context/cartContext";
+import { MenuProvider } from "./context/menuContext";
 
 import NavBarHeader from "./components/navbar/NavBarHeader";
 import Home from "./pages/Home";
 import Nosotros from "./pages/Nosotros";
 import Contacto from "./pages/Contacto";
-import MenuPersonalizado from "./pages/MenuPersonalizado";
+import Menu from "./pages/Menu";
 import RegistroLogin from "./pages/RegistroLogin";
+import CarritoCompras from "./pages/CarritoCompras";
 
 function App() {
   const [modoRegLog, setmodoRegLog] = useState("registro");
-  const [preparaciones, setPreparaciones] = useState([]);
-  const [guarniciones, setGuarniciones] = useState([]);
 
   const handleModoRegLog = (modo) => {
     if (modo === "login") {
@@ -24,65 +23,30 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    const q = query(collection(db, "preparaciones"));
-    const unsubcribe = onSnapshot(
-      q,
-      (db,
-      (querySnapshot) => {
-        let preparacionesArray = [];
-        querySnapshot.forEach((doc) => {
-          preparacionesArray.push({ ...doc.data(), id: doc.id });
-        });
-        setPreparaciones(preparacionesArray);
-      })
-    );
-    return () => unsubcribe();
-  }, []);
-
-  useEffect(() => {
-    const q = query(collection(db, "guarniciones"));
-    const unsubcribe = onSnapshot(
-      q,
-      (db,
-      (querySnapshot) => {
-        let guarnicionesArray = [];
-        querySnapshot.forEach((doc) => {
-          guarnicionesArray.push({ ...doc.data(), id: doc.id });
-        });
-        setGuarniciones(guarnicionesArray);
-      })
-    );
-    return () => unsubcribe();
-  }, []);
-
   return (
     <BrowserRouter>
       <AuthProvider>
-        <NavBarHeader handleModoRegLog={handleModoRegLog} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/menu"
-            element={
-              <MenuPersonalizado
-                preparaciones={preparaciones}
-                guarniciones={guarniciones}
+        <CartProvider>
+          <MenuProvider>
+            <NavBarHeader handleModoRegLog={handleModoRegLog} />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/nosotros" element={<Nosotros />} />
+              <Route path="/contacto" element={<Contacto />} />
+              <Route path="/carritoCompras" element={<CarritoCompras />} />
+              <Route
+                path="/registroLogin"
+                element={
+                  <RegistroLogin
+                    handleModoRegLog={handleModoRegLog}
+                    modoRegLog={modoRegLog}
+                  />
+                }
               />
-            }
-          />
-          <Route path="/nosotros" element={<Nosotros />} />
-          <Route path="/contacto" element={<Contacto />} />
-          <Route
-            path="/registroLogin"
-            element={
-              <RegistroLogin
-                handleModoRegLog={handleModoRegLog}
-                modoRegLog={modoRegLog}
-              />
-            }
-          />
-        </Routes>
+            </Routes>
+          </MenuProvider>
+        </CartProvider>
       </AuthProvider>
     </BrowserRouter>
   );
