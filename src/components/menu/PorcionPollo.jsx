@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useMenu } from "../../context/menuContext";
 import Cantidad from "./Cantidad";
 
 const PorcionPollo = () => {
+  const { menu, setMenu } = useMenu();
+
   const [porcion, setPorcion] = useState(0);
+  const [contador, setContador] = useState(0);
+
+  useEffect(() => {
+    setMenu({ ...menu, cantidad: contador * porcion });
+  }, [contador, porcion]);
 
   const handleChange = (e) => {
     setPorcion(parseFloat(e.target.value));
@@ -47,7 +55,9 @@ const PorcionPollo = () => {
         </div>
       </fieldset>
       <p className="text-sm text-red-500">Cantidad de porciones</p>
-      {porcion > 0 && <Cantidad porcion={porcion} />}
+      {porcion > 0 && (
+        <Cantidad contador={contador} setContador={setContador} />
+      )}
     </div>
   );
 };
