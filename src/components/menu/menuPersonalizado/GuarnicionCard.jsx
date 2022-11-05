@@ -9,10 +9,10 @@ const GuarnicionCard = ({ guarnicion, handleGuarnicion }) => {
   } = useMenu();
 
   const handleClick = (guarnicion) => {
-    if (tipoDeComidaSeleccionada === "guarniciones") {
-      handleGuarnicionSeleccionada(guarnicion);
-    } else {
+    if (tipoDeComidaSeleccionada === "menu personalizado") {
       handleGuarnicion(guarnicion);
+    } else {
+      handleGuarnicionSeleccionada(guarnicion);
     }
   };
 
