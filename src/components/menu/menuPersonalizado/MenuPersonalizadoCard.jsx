@@ -1,9 +1,17 @@
+import { useEffect, useState } from "react";
 import { useMenu } from "../../../context/menuContext";
 import Cantidad from "../Cantidad";
 import Plato from "../Plato";
 
 const MenuPersonalizadoCard = () => {
+  const { menu, setMenu } = useMenu();
+
   const { guarnicionSeleccionada, preparacionSeleccionada } = useMenu();
+  const [contador, setContador] = useState(0);
+
+  useEffect(() => {
+    setMenu({ ...menu, cantidad: contador });
+  }, [contador]);
 
   return (
     <div className="mb-5">
@@ -52,7 +60,7 @@ const MenuPersonalizadoCard = () => {
         )}
       </div>
       <p className="text-red-600 font-semibold">Selecciona una cantidad</p>
-      <Cantidad />
+      <Cantidad contador={contador} setContador={setContador} />
     </div>
   );
 };
