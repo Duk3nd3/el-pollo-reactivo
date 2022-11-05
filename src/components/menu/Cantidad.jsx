@@ -1,14 +1,4 @@
-import { useEffect, useState } from "react";
-import { useMenu } from "../../context/menuContext";
-
-const Cantidad = ({ porcion = 1 }) => {
-  const { menu, setMenu } = useMenu();
-  const [contador, setContador] = useState(0);
-
-  useEffect(() => {
-    setMenu({ ...menu, cantidad: porcion * contador });
-  }, [contador, porcion]);
-
+const Cantidad = ({ contador, setContador }) => {
   const handleClick = (e) => {
     if (e.target.innerHTML === "+") {
       setContador(contador + 1);
