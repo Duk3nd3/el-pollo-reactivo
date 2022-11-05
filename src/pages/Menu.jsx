@@ -6,6 +6,7 @@ import Pollo from "../components/menu/Pollo";
 import Ternera from "../components/menu/Ternera";
 import { useMenu } from "../context/menuContext";
 import TipoGuarnicion from "../components/menu/TipoGuarnicion";
+import Empanadas from "../components/menu/Empanadas";
 
 const Menu = () => {
   const {
@@ -26,7 +27,6 @@ const Menu = () => {
     handleTipoDeComidas(comida);
     moveIntoView(tipoMenuRef);
   };
-
   return (
     <div className="h-screen">
       <h2 className="font-bold text-red-600 text-xl sm:text-2xl xl:text-4xl pt-[260px] b-10 text-center tracking-widest pb-20">
@@ -46,10 +46,10 @@ const Menu = () => {
         {tipoDeComidaSeleccionada === "menu personalizado" && (
           <MenuPersonalizado />
         )}
-
         {tipoDeComidaSeleccionada === "carne a la parrilla" && <Ternera />}
         {tipoDeComidaSeleccionada === "pollo a la parrilla" && <Pollo />}
         {tipoDeComidaSeleccionada === "guarniciones" && <TipoGuarnicion />}
+        {tipoDeComidaSeleccionada === "empanadas" && <Empanadas />}
       </div>
     </div>
   );
