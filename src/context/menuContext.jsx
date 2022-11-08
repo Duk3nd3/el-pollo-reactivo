@@ -21,19 +21,29 @@ export function MenuProvider({ children }) {
     id: "",
   });
 
-  useEffect(() => {
-    console.log(menu);
-  }, [menu]);
+  const [contadorEmpanadas, setContadorEmpanadas] = useState({
+    carne: 0,
+    jamon: 0,
+    pollo: 0,
+    verdura: 0,
+    caprese: 0,
+  });
 
   const [preparaciones, setPreparaciones] = useState([]);
   const [guarniciones, setGuarniciones] = useState([]);
   const [tipoDeComidas, setTipoDeComidas] = useState([]);
   const [comidas, setComidas] = useState([]);
+  const [saboresDeEmpanadas, setSaboresDeEmpanadas] = useState([]);
 
   const [tipoDeComidaSeleccionada, setTipoDeComidaSeleccionada] = useState("");
   const [tipoMenuSeleccionado, setTipoMenuSeleccionado] = useState("");
   const [preparacionSeleccionada, setPreparacionSeleccionada] = useState("");
   const [guarnicionSeleccionada, setGuarnicionSeleccionada] = useState("");
+
+  // useEffect(() => {
+  //   console.log(menu);
+  //   // console.log(contadorEmpanadas);
+  // }, [menu, contadorEmpanadas]);
 
   useEffect(() => {
     const q = query(collection(db, "tipo de comidas"));
@@ -113,6 +123,24 @@ export function MenuProvider({ children }) {
     setGuarnicionSeleccionada("");
   };
 
+  const handleTipoDeComidas = (tipoComida) => {
+    setTipoDeComidaSeleccionada(tipoComida);
+    if (tipoComida !== "menu personalizado") {
+      const preparacionTipoComida = comidas.filter(
+        (comida) => comida.nombre === tipoComida
+      );
+      if (tipoComida === "empanadas") {
+        setSaboresDeEmpanadas(preparacionTipoComida[0].sabores);
+      }
+      setMenu({
+        ...menu,
+        ingredientePrincipal: preparacionTipoComida[0].nombre,
+        precio: preparacionTipoComida[0].precio,
+        id: preparacionTipoComida[0]?.id,
+      });
+    }
+  };
+
   const handleTipoMenuSeleccionado = (tipo) => {
     setTipoMenuSeleccionado(tipo);
     setPreparacionSeleccionada("");
@@ -120,7 +148,6 @@ export function MenuProvider({ children }) {
   };
 
   const handlePreparacionSeleccionada = (preparacion) => {
-    console.log(preparacion);
     setPreparacionSeleccionada(preparacion);
     setMenu({
       ...menu,
@@ -143,7 +170,6 @@ export function MenuProvider({ children }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     addToCart(menu);
-    setMenu({ ...menu, cantidad: 0 });
     setMenu({
       ingredientePrincipal: "",
       guarnicion: "",
@@ -151,25 +177,17 @@ export function MenuProvider({ children }) {
       precio: 0,
       id: "",
     });
-    setTipoMenuSeleccionado(" ");
+    setContadorEmpanadas({
+      carne: 0,
+      jamon: 0,
+      pollo: 0,
+      verdura: 0,
+      caprese: 0,
+    });
     setTipoDeComidaSeleccionada("");
+    setTipoMenuSeleccionado(" ");
     setPreparacionSeleccionada("");
     setGuarnicionSeleccionada("");
-  };
-
-  const handleTipoDeComidas = (tipoComida) => {
-    setTipoDeComidaSeleccionada(tipoComida);
-    if (tipoComida !== "menu personalizado") {
-      const preparacionTipoComida = comidas.filter(
-        (comida) => comida.nombre === tipoComida
-      );
-      setMenu({
-        ...menu,
-        ingredientePrincipal: preparacionTipoComida[0].nombre,
-        precio: preparacionTipoComida[0].precio,
-        id: preparacionTipoComida[0]?.id,
-      });
-    }
   };
 
   const moveIntoView = (ref) => {
@@ -177,6 +195,10 @@ export function MenuProvider({ children }) {
       ref.current.scrollIntoView({ behavior: "smooth" });
     }, 150);
   };
+
+  // const armarGuarnicionEmpanadas = () => {
+
+  // };
 
   return (
     <menuContext.Provider
@@ -190,6 +212,8 @@ export function MenuProvider({ children }) {
         handlePreparacionSeleccionada,
         handleGuarnicionSeleccionada,
         moveIntoView,
+        setContadorEmpanadas,
+        contadorEmpanadas,
         tipoDeComidas,
         tipoDeComidaSeleccionada,
         comidas,
@@ -198,6 +222,7 @@ export function MenuProvider({ children }) {
         tipoMenuSeleccionado,
         preparacionSeleccionada,
         guarnicionSeleccionada,
+        saboresDeEmpanadas,
       }}
     >
       {children}
