@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 
 import TipoComidas from "../components/menu/TipoComidas";
-import MenuPersonalizado from "../components/menu/MenuPersonalizado";
-import Pollo from "../components/menu/Pollo";
-import Ternera from "../components/menu/Ternera";
+import MenuPersonalizado from "../components/menu/menuPersonalizado/MenuPersonalizado";
+import Pollo from "../components/menu/pollo/Pollo";
+import Ternera from "../components/menu/ternera/Ternera";
 import { useMenu } from "../context/menuContext";
 import TipoGuarnicion from "../components/menu/TipoGuarnicion";
-import Empanadas from "../components/menu/Empanadas";
+import Empanadas from "../components/menu/empanadas/Empanadas";
 
 const Menu = () => {
   const {

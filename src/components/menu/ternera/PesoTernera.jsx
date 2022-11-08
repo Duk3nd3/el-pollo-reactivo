@@ -1,4 +1,4 @@
-import { useMenu } from "../../context/menuContext";
+import { useMenu } from "../../../context/menuContext";
 
 const PesoTernera = () => {
   const { menu, setMenu } = useMenu();

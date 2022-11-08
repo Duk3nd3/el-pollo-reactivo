@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useMenu } from "../../context/menuContext";
+import { useMenu } from "../../../context/menuContext";
 
 const CantidadEmpanadas = ({ sabor }) => {
   const { contadorEmpanadas, setContadorEmpanadas, menu, setMenu } = useMenu();

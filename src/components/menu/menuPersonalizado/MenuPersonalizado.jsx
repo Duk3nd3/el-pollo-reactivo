@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 
-import TipoMenu from "./menuPersonalizado/TipoMenu";
-import MenuPersonalizadoCard from "./menuPersonalizado/MenuPersonalizadoCard";
-import SubmitCarritoButton from "./SubmitCarritoButton";
-import { useMenu } from "../../context/menuContext";
-import ListaPreparaciones from "./menuPersonalizado/ListaPreparaciones";
-import ListaGuarniciones from "./menuPersonalizado/ListaGuarniciones";
+import TipoMenu from "./TipoMenu";
+import MenuPersonalizadoCard from "./MenuPersonalizadoCard";
+import SubmitCarritoButton from "../SubmitCarritoButton";
+import { useMenu } from "../../../context/menuContext";
+import ListaPreparaciones from "./ListaPreparaciones";
+import ListaGuarniciones from "./ListaGuarniciones";
 
 const MenuPersonalizado = ({}) => {
   const {

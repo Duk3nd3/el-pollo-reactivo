@@ -1,8 +1,8 @@
 import React from "react";
-import { useMenu } from "../../context/menuContext";
-import Plato from "./Plato";
+import { useMenu } from "../../../context/menuContext";
+import Plato from "../Plato";
 import PesoTernera from "./PesoTernera";
-import SubmitCarritoButton from "./SubmitCarritoButton";
+import SubmitCarritoButton from "../SubmitCarritoButton";
 
 const Ternera = () => {
   const { menu, setMenu, handleSubmit } = useMenu();

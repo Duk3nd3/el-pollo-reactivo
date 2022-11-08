@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useMenu } from "../../context/menuContext";
-import Cantidad from "./Cantidad";
+import { useMenu } from "../../../context/menuContext";
+import Cantidad from "../Cantidad";
 
 const PorcionPollo = () => {
   const { menu, setMenu } = useMenu();

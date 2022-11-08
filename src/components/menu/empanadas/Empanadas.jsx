@@ -1,6 +1,6 @@
-import { useMenu } from "../../context/menuContext";
-import ListaEmpanadas from "./ListaEmpanadas";
-import SubmitCarritoButton from "./SubmitCarritoButton";
+import { useMenu } from "../../../context/menuContext";
+import ListaEmpanadas from "../empanadas/ListaEmpanadas";
+import SubmitCarritoButton from "../SubmitCarritoButton";
 
 const Empanadas = () => {
   const { menu, handleSubmit } = useMenu();

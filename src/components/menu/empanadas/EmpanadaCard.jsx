@@ -1,4 +1,4 @@
-import Plato from "./Plato";
+import Plato from "../Plato";
 
 const EmpanadaCard = ({ sabor }) => {
   return (

@@ -1,4 +1,4 @@
-import { useMenu } from "../../context/menuContext";
+import { useMenu } from "../../../context/menuContext";
 import CantidadEmpanadas from "./CantidadEmpanadas";
 import EmpanadaCard from "./EmpanadaCard";
 
