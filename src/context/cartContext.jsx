@@ -22,8 +22,24 @@ export function CartProvider({ children }) {
     menuExiste
       ? setCart(
           cart.map((menu) => {
-            if (menu.id === nuevoMenu.id && menu.name === nuevoMenu.name) {
-              return { ...menu, cantidad: menu.cantidad + nuevoMenu.cantidad };
+            if (menu.id === nuevoMenu.id) {
+              if (nuevoMenu.ingredientePrincipal === "empanadas") {
+                let obj3 = {};
+                const obj1 = menu.guarnicion;
+                const obj2 = nuevoMenu.guarnicion;
+                Object.keys(nuevoMenu.guarnicion).map((key) => {
+                  obj3[key] = obj1[key] + obj2[key];
+                });
+                return {
+                  ...menu,
+                  guarnicion: { ...obj3 },
+                };
+              } else {
+                return {
+                  ...menu,
+                  cantidad: menu.cantidad + nuevoMenu.cantidad,
+                };
+              }
             } else {
               return menu;
             }
