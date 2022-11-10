@@ -3,16 +3,14 @@ import { MdOutlineLocalGroceryStore } from "react-icons/md";
 import { AiOutlineMenu } from "react-icons/ai";
 import { FaUserAlt } from "react-icons/fa";
 import { useAuth } from "../../context/authContext";
-import { useCart } from "../../context/cartContext";
 import UserMenu from "./UserMenu";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const NavBar = ({ handleNav, handleModoRegLog }) => {
+  const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
-
   const { user } = useAuth();
-  const { cart } = useCart();
-
   const [navUserMenu, setNavUserMenu] = useState(false);
 
   const handleRegLog = (modo) => {

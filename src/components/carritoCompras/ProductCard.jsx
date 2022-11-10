@@ -1,6 +1,8 @@
-import { useCart } from "../../context/cartContext";
+import { useDispatch } from "react-redux";
+import { removeFromCart } from "../../features/cart/cartSlice";
+
 const ProductCard = ({ producto }) => {
-  const { removeFromCart } = useCart();
+  const dispatch = useDispatch();
 
   const cambiarNombreDeSabor = (sabor) => {
     return sabor === "jamon"
@@ -43,7 +45,7 @@ const ProductCard = ({ producto }) => {
       <p>Precio: {producto.precio * producto.cantidad}$</p>
 
       <button
-        onClick={() => removeFromCart(producto.id)}
+        onClick={() => dispatch(removeFromCart(producto.id))}
         className="bg-red-600 text-white font-semibold p-1 rounded-md"
       >
         Eliminar

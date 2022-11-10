@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { cartContext } from "./cartContext";
 import { db } from "../firebase";
 import { collection, query, onSnapshot } from "firebase/firestore";
-
+import { useDispatch } from "react-redux";
+import { addToCart } from "../features/cart/cartSlice";
 export const menuContext = createContext();
 
 export const useMenu = () => {
@@ -11,7 +11,7 @@ export const useMenu = () => {
 };
 
 export function MenuProvider({ children }) {
-  const { addToCart } = useContext(cartContext);
+  const dispatch = useDispatch();
 
   const [menu, setMenu] = useState({
     ingredientePrincipal: "",
@@ -181,8 +181,8 @@ export function MenuProvider({ children }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(addToCart({ ...menu }));
 
-    addToCart(menu);
     // reset menu
     setMenu({
       ingredientePrincipal: "",
@@ -213,10 +213,6 @@ export function MenuProvider({ children }) {
       ref.current.scrollIntoView({ behavior: "smooth" });
     }, 150);
   };
-
-  // const armarGuarnicionEmpanadas = () => {
-
-  // };
 
   return (
     <menuContext.Provider

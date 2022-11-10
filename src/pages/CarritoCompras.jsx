@@ -1,8 +1,11 @@
 import ProductCard from "../components/carritoCompras/ProductCard";
-import { useCart } from "../context/cartContext";
+import { useSelector, useDispatch } from "react-redux";
+import { resetCart } from "../features/cart/cartSlice";
 
 const CarritoCompras = () => {
-  const { cart, clearCart } = useCart();
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
   return (
     <>
       {cart.length === 0 || cart === undefined ? (
@@ -36,7 +39,7 @@ const CarritoCompras = () => {
             </ul>
           </div>
           <button
-            onClick={clearCart}
+            onClick={() => dispatch(resetCart)}
             className="bg-red-600 p-1 text-white font-semibold rounded-md"
           >
             Eliminar carrito
