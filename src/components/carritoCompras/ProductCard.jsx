@@ -1,17 +1,27 @@
 import { useCart } from "../../context/cartContext";
 const ProductCard = ({ producto }) => {
   const { removeFromCart } = useCart();
+
+  const cambiarNombreDeSabor = (sabor) => {
+    return sabor === "jamon"
+      ? "jamon y queso"
+      : sabor === "jamonCompleta"
+      ? "jamon y queso completa"
+      : sabor;
+  };
+
   return (
     <div className="bg-red-200 p-2">
       <p className="capitalize">{producto?.ingredientePrincipal}</p>
 
-      {producto.ingredientePrincipal === "empanadas"
+      {producto.ingredientePrincipal === "empanadas" ||
+      producto.ingredientePrincipal === "tartas"
         ? Object.keys(producto?.guarnicion).map((key, i) => {
             if (producto.guarnicion[key] !== 0) {
               return (
                 <p key={i}>
                   <span className="capitalize">
-                    {key === "jamon" ? "jamon y queso" : key}:{" "}
+                    {cambiarNombreDeSabor(key)}:{" "}
                   </span>
                   <span>{producto.guarnicion[key]}</span>
                 </p>
@@ -19,9 +29,17 @@ const ProductCard = ({ producto }) => {
             }
           })
         : producto.guarnicion && <p>{producto.guarnicion}</p>}
-      {producto.ingredientePrincipal !== "empanadas" && (
+
+      {producto.cantidad === 0.25 ? (
+        <p>Cantidad: 1/4 pollo</p>
+      ) : producto.cantidad === 0.5 ? (
+        <p>Cantidad: 1/2 pollo</p>
+      ) : producto.ingredientePrincipal === "carne a la parrilla" ? (
+        <p>Cantidad: {producto.cantidad} Kg</p>
+      ) : (
         <p>Cantidad: {producto.cantidad}</p>
       )}
+
       <p>Precio: {producto.precio * producto.cantidad}$</p>
 
       <button
