@@ -23,7 +23,10 @@ export function CartProvider({ children }) {
       ? setCart(
           cart.map((menu) => {
             if (menu.id === nuevoMenu.id) {
-              if (nuevoMenu.ingredientePrincipal === "empanadas") {
+              if (
+                nuevoMenu.ingredientePrincipal === "empanadas" ||
+                nuevoMenu.ingredientePrincipal === "tartas"
+              ) {
                 let obj3 = {};
                 const obj1 = menu.guarnicion;
                 const obj2 = nuevoMenu.guarnicion;
@@ -33,6 +36,11 @@ export function CartProvider({ children }) {
                 return {
                   ...menu,
                   guarnicion: { ...obj3 },
+                  cantidad: Object.values(obj3).reduce(
+                    (previousValue, currentValue) =>
+                      previousValue + currentValue,
+                    0
+                  ),
                 };
               } else {
                 return {
