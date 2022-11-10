@@ -7,6 +7,7 @@ import Ternera from "../components/menu/ternera/Ternera";
 import { useMenu } from "../context/menuContext";
 import TipoGuarnicion from "../components/menu/TipoGuarnicion";
 import Empanadas from "../components/menu/empanadas/Empanadas";
+import Tartas from "../components/menu/tartas/Tartas";
 
 const Menu = () => {
   const {
@@ -50,6 +51,7 @@ const Menu = () => {
         {tipoDeComidaSeleccionada === "pollo a la parrilla" && <Pollo />}
         {tipoDeComidaSeleccionada === "guarniciones" && <TipoGuarnicion />}
         {tipoDeComidaSeleccionada === "empanadas" && <Empanadas />}
+        {tipoDeComidaSeleccionada === "tartas" && <Tartas />}
       </div>
     </div>
   );
