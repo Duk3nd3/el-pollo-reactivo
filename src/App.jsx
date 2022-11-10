@@ -3,6 +3,8 @@ import { useState } from "react";
 import { AuthProvider } from "./context/authContext";
 import { CartProvider } from "./context/cartContext";
 import { MenuProvider } from "./context/menuContext";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 
 import NavBarHeader from "./components/navbar/NavBarHeader";
 import Home from "./pages/Home";
@@ -25,29 +27,31 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <CartProvider>
-          <MenuProvider>
-            <NavBarHeader handleModoRegLog={handleModoRegLog} />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/menu" element={<Menu />} />
-              <Route path="/nosotros" element={<Nosotros />} />
-              <Route path="/contacto" element={<Contacto />} />
-              <Route path="/carritoCompras" element={<CarritoCompras />} />
-              <Route
-                path="/registroLogin"
-                element={
-                  <RegistroLogin
-                    handleModoRegLog={handleModoRegLog}
-                    modoRegLog={modoRegLog}
-                  />
-                }
-              />
-            </Routes>
-          </MenuProvider>
-        </CartProvider>
-      </AuthProvider>
+      <Provider store={store}>
+        <AuthProvider>
+          <CartProvider>
+            <MenuProvider>
+              <NavBarHeader handleModoRegLog={handleModoRegLog} />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/menu" element={<Menu />} />
+                <Route path="/nosotros" element={<Nosotros />} />
+                <Route path="/contacto" element={<Contacto />} />
+                <Route path="/carritoCompras" element={<CarritoCompras />} />
+                <Route
+                  path="/registroLogin"
+                  element={
+                    <RegistroLogin
+                      handleModoRegLog={handleModoRegLog}
+                      modoRegLog={modoRegLog}
+                    />
+                  }
+                />
+              </Routes>
+            </MenuProvider>
+          </CartProvider>
+        </AuthProvider>
+      </Provider>
     </BrowserRouter>
   );
 }
