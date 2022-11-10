@@ -29,21 +29,29 @@ export function MenuProvider({ children }) {
     caprese: 0,
   });
 
+  const [contadorTartas, setContadorTartas] = useState({
+    jamonCompleta: 0,
+    jamon: 0,
+    pollo: 0,
+    verdura: 0,
+  });
+
   const [preparaciones, setPreparaciones] = useState([]);
   const [guarniciones, setGuarniciones] = useState([]);
   const [tipoDeComidas, setTipoDeComidas] = useState([]);
   const [comidas, setComidas] = useState([]);
   const [saboresDeEmpanadas, setSaboresDeEmpanadas] = useState([]);
+  const [saboresDeTartas, setSaboresDeTartas] = useState([]);
 
   const [tipoDeComidaSeleccionada, setTipoDeComidaSeleccionada] = useState("");
   const [tipoMenuSeleccionado, setTipoMenuSeleccionado] = useState("");
   const [preparacionSeleccionada, setPreparacionSeleccionada] = useState("");
   const [guarnicionSeleccionada, setGuarnicionSeleccionada] = useState("");
 
-  // useEffect(() => {
-  //   console.log(menu);
-  //   // console.log(contadorEmpanadas);
-  // }, [menu, contadorEmpanadas]);
+  useEffect(() => {
+    console.log(menu);
+    console.log(contadorTartas);
+  }, [menu, contadorTartas]);
 
   useEffect(() => {
     const q = query(collection(db, "tipo de comidas"));
@@ -129,8 +137,12 @@ export function MenuProvider({ children }) {
       const preparacionTipoComida = comidas.filter(
         (comida) => comida.nombre === tipoComida
       );
+
       if (tipoComida === "empanadas") {
         setSaboresDeEmpanadas(preparacionTipoComida[0].sabores);
+      }
+      if (tipoComida === "tartas") {
+        setSaboresDeTartas(preparacionTipoComida[0].sabor);
       }
       setMenu({
         ...menu,
@@ -169,7 +181,9 @@ export function MenuProvider({ children }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     addToCart(menu);
+    // reset menu
     setMenu({
       ingredientePrincipal: "",
       guarnicion: "",
@@ -177,6 +191,7 @@ export function MenuProvider({ children }) {
       precio: 0,
       id: "",
     });
+    // reset ContadorEmpandas
     setContadorEmpanadas({
       carne: 0,
       jamon: 0,
@@ -184,6 +199,9 @@ export function MenuProvider({ children }) {
       verdura: 0,
       caprese: 0,
     });
+    // reset contadorTartas
+    setContadorTartas({ jamonCompleta: 0, jamon: 0, pollo: 0, verdura: 0 });
+    // reset selectores de comida y menu
     setTipoDeComidaSeleccionada("");
     setTipoMenuSeleccionado(" ");
     setPreparacionSeleccionada("");
@@ -213,7 +231,9 @@ export function MenuProvider({ children }) {
         handleGuarnicionSeleccionada,
         moveIntoView,
         setContadorEmpanadas,
+        setContadorTartas,
         contadorEmpanadas,
+        contadorTartas,
         tipoDeComidas,
         tipoDeComidaSeleccionada,
         comidas,
@@ -223,6 +243,7 @@ export function MenuProvider({ children }) {
         preparacionSeleccionada,
         guarnicionSeleccionada,
         saboresDeEmpanadas,
+        saboresDeTartas,
       }}
     >
       {children}
