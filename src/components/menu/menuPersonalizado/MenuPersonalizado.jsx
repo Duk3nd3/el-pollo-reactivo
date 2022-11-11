@@ -5,7 +5,7 @@ import MenuPersonalizadoCard from "./MenuPersonalizadoCard";
 import SubmitCarritoButton from "../SubmitCarritoButton";
 import { useMenu } from "../../../context/menuContext";
 import ListaPreparaciones from "./ListaPreparaciones";
-import ListaGuarniciones from "./ListaGuarniciones";
+import ListaGuarniciones from "../ListaGuarniciones";
 
 const MenuPersonalizado = ({}) => {
   const {

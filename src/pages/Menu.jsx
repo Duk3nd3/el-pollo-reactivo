@@ -5,7 +5,7 @@ import MenuPersonalizado from "../components/menu/menuPersonalizado/MenuPersonal
 import Pollo from "../components/menu/pollo/Pollo";
 import Ternera from "../components/menu/ternera/Ternera";
 import { useMenu } from "../context/menuContext";
-import TipoGuarnicion from "../components/menu/TipoGuarnicion";
+import Guarniciones from "../components/menu/guarniciones/Guarniciones";
 import Empanadas from "../components/menu/empanadas/Empanadas";
 import Tartas from "../components/menu/tartas/Tartas";
 
@@ -49,7 +49,7 @@ const Menu = () => {
         )}
         {tipoDeComidaSeleccionada === "carne a la parrilla" && <Ternera />}
         {tipoDeComidaSeleccionada === "pollo a la parrilla" && <Pollo />}
-        {tipoDeComidaSeleccionada === "guarniciones" && <TipoGuarnicion />}
+        {tipoDeComidaSeleccionada === "guarniciones" && <Guarniciones />}
         {tipoDeComidaSeleccionada === "empanadas" && <Empanadas />}
         {tipoDeComidaSeleccionada === "tartas" && <Tartas />}
       </div>

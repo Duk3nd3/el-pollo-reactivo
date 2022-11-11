@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useMenu } from "../../context/menuContext";
-import Cantidad from "./Cantidad";
-import ListaGuarniciones from "./menuPersonalizado/ListaGuarniciones";
-import SubmitCarritoButton from "./SubmitCarritoButton";
+import { useMenu } from "../../../context/menuContext";
+import Cantidad from "../Cantidad";
+import ListaGuarniciones from "../ListaGuarniciones";
+import SubmitCarritoButton from "../SubmitCarritoButton";
 
 const Guarniciones = () => {
   const { menu, setMenu, handleSubmit } = useMenu();
