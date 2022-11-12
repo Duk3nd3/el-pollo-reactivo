@@ -1,6 +1,6 @@
 import React from "react";
 import { useMenu } from "../../context/menuContext";
-import GuarnicionCard from "./menuPersonalizado/GuarnicionCard";
+import GuarnicionCard from "./GuarnicionCard";
 
 const ListaGuarniciones = ({ handleGuarnicion }) => {
   const { guarniciones } = useMenu();
