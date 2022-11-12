@@ -1,20 +1,8 @@
-import { useMenu } from "../../../context/menuContext";
-import Plato from "../Plato";
+import { useMenu } from "../../context/menuContext";
+import Plato from "./Plato";
 
 const GuarnicionCard = ({ guarnicion, handleGuarnicion }) => {
-  const {
-    guarnicionSeleccionada,
-    handleGuarnicionSeleccionada,
-    tipoDeComidaSeleccionada,
-  } = useMenu();
-
-  const handleClick = (guarnicion) => {
-    if (tipoDeComidaSeleccionada === "menu personalizado") {
-      handleGuarnicion(guarnicion);
-    } else {
-      handleGuarnicionSeleccionada(guarnicion);
-    }
-  };
+  const { guarnicionSeleccionada } = useMenu();
 
   return (
     <li className="flex flex-col items-center">
@@ -28,7 +16,7 @@ const GuarnicionCard = ({ guarnicion, handleGuarnicion }) => {
           }
           seleccion={guarnicionSeleccionada.nombre}
           nombre={guarnicion.nombre}
-          onClick={() => handleClick(guarnicion)}
+          onClick={() => handleGuarnicion(guarnicion)}
         />
       </div>
       <h3 className="font-semibold">{guarnicion.nombre}</h3>
