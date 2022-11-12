@@ -54,8 +54,10 @@ export const cartSlice = createSlice({
     },
 
     resetCart: () => {
-      initialCart;
-      localStorage.setItem("EPC-Carrito", JSON.stringify(state));
+      if (window.confirm("Estas seguro que queres eliminar el carrito?")) {
+        localStorage.setItem("EPC-Carrito", JSON.stringify([]));
+        return [];
+      }
     },
   },
 });
