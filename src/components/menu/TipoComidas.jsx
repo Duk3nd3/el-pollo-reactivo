@@ -1,7 +1,7 @@
 import { useMenu } from "../../context/menuContext";
 import Plato from "./Plato";
 
-const TipoComidas = ({ handleComidas, comida }) => {
+const TipoComidas = ({ handleSeleccionDeComida, comida }) => {
   const { tipoDeComidaSeleccionada } = useMenu();
 
   return (
@@ -11,7 +11,7 @@ const TipoComidas = ({ handleComidas, comida }) => {
           imagen={<img src={`/img/${comida.nombre}.jpg`} alt={comida.nombre} />}
           seleccion={tipoDeComidaSeleccionada}
           nombre={comida.nombre}
-          onClick={() => handleComidas(comida.nombre)}
+          onClick={() => handleSeleccionDeComida(comida.nombre)}
         />
         <h3 className="font-semibold pt-2 text-center">{comida.nombre}</h3>
       </div>

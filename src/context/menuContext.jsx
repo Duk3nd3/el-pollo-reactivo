@@ -117,7 +117,7 @@ export function MenuProvider({ children }) {
     return () => unsubcribe();
   }, []);
 
-  const inicializarMenu = () => {
+  const resetearMenu = () => {
     setMenu({
       ingredientePrincipal: "",
       guarnicion: "",
@@ -220,7 +220,7 @@ export function MenuProvider({ children }) {
     <menuContext.Provider
       value={{
         menu,
-        inicializarMenu,
+        inicializarMenu: resetearMenu,
         setMenu,
         handleSubmit,
         handleTipoDeComidas,

@@ -10,24 +10,25 @@ import Empanadas from "../components/menu/empanadas/Empanadas";
 import Tartas from "../components/menu/tartas/Tartas";
 
 const Menu = () => {
+  const tipoMenuRef = useRef();
   const {
     comidas,
     tipoDeComidaSeleccionada,
     handleTipoDeComidas,
     moveIntoView,
-    inicializarMenu,
+    resetearMenu,
   } = useMenu();
 
   useEffect(() => {
-    inicializarMenu();
+    resetearMenu();
   }, []);
 
-  const tipoMenuRef = useRef();
-
-  const handleComidas = (comida) => {
+  //guarda la comida seleccionada y mueve la pantalla hacia la seccion correspondiente
+  const handleSeleccionDeComida = (comida) => {
     handleTipoDeComidas(comida);
     moveIntoView(tipoMenuRef);
   };
+
   return (
     <div className="h-screen">
       <h2 className="font-bold text-red-600 text-xl sm:text-2xl xl:text-4xl pt-[260px] b-10 text-center tracking-widest pb-20">
@@ -36,7 +37,7 @@ const Menu = () => {
       <ul className="max-w-[95%] xl:max-w-[80%] mx-auto flex justify-center flex-wrap gap-2 sm:gap-3 lg:gap-4 xl:gap-5 pb-10">
         {comidas.map((comida) => (
           <TipoComidas
-            handleComidas={handleComidas}
+            handleComidas={handleSeleccionDeComida}
             comida={comida}
             key={comida.id}
           />
