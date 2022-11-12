@@ -4,7 +4,6 @@ import Cantidad from "../Cantidad";
 
 const PorcionPollo = () => {
   const { menu, setMenu } = useMenu();
-
   const [porcion, setPorcion] = useState(0);
   const [contador, setContador] = useState(0);
 
@@ -20,7 +19,7 @@ const PorcionPollo = () => {
     <div className="flex flex-col">
       <fieldset className="border border-zinc-500 px-3 text-center mb-2">
         <legend className="px-1 font-semibold text-sm">
-          Seleccione una porcion
+          Seleccione un corte
         </legend>
 
         <div className="py-1">
@@ -54,9 +53,12 @@ const PorcionPollo = () => {
           </label>
         </div>
       </fieldset>
-      <p className="text-sm text-red-500">Cantidad de porciones</p>
+
       {porcion > 0 && (
-        <Cantidad contador={contador} setContador={setContador} />
+        <>
+          <p className="text-sm text-red-500">Cantidad de porciones</p>
+          <Cantidad contador={contador} setContador={setContador} />
+        </>
       )}
     </div>
   );
