@@ -48,10 +48,10 @@ export function MenuProvider({ children }) {
   const [preparacionSeleccionada, setPreparacionSeleccionada] = useState("");
   const [guarnicionSeleccionada, setGuarnicionSeleccionada] = useState("");
 
-  useEffect(() => {
-    console.log(menu);
-    console.log(contadorTartas);
-  }, [menu, contadorTartas]);
+  // useEffect(() => {
+  //   console.log(menu);
+  //   console.log(contadorTartas);
+  // }, [menu, contadorTartas]);
 
   useEffect(() => {
     const q = query(collection(db, "tipo de comidas"));
@@ -133,6 +133,7 @@ export function MenuProvider({ children }) {
 
   const handleTipoDeComidas = (tipoComida) => {
     setTipoDeComidaSeleccionada(tipoComida);
+
     if (tipoComida !== "menu personalizado") {
       const preparacionTipoComida = comidas.filter(
         (comida) => comida.nombre === tipoComida
@@ -147,6 +148,7 @@ export function MenuProvider({ children }) {
       setMenu({
         ...menu,
         ingredientePrincipal: preparacionTipoComida[0].nombre,
+        guarnicion: "",
         precio: preparacionTipoComida[0].precio,
         id: preparacionTipoComida[0]?.id,
       });
