@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useMenu } from "../../../context/menuContext";
 import Cantidad from "../Cantidad";
 import ListaGuarniciones from "../ListaGuarniciones";
 import SubmitCarritoButton from "../SubmitCarritoButton";
 
 const Guarniciones = () => {
-  const { menu, setMenu, handleSubmit } = useMenu();
+  const cantidadRef = useRef();
+
+  const {
+    menu,
+    setMenu,
+    handleSubmit,
+    moveIntoView,
+    handleGuarnicionSeleccionada,
+  } = useMenu();
 
   const [contador, setContador] = useState(0);
 
@@ -13,11 +21,16 @@ const Guarniciones = () => {
     setMenu({ ...menu, cantidad: contador });
   }, [contador]);
 
+  const handleGuarnicion = (guarnicion) => {
+    handleGuarnicionSeleccionada(guarnicion);
+    moveIntoView(cantidadRef);
+  };
+
   return (
     <div className="h-screen max-w-[95%] xl:max-w-[80%] mx-auto flex flex-col items-center gap-5">
-      <ListaGuarniciones />
+      <ListaGuarniciones handleGuarnicion={handleGuarnicion} />
       {menu.guarnicion ? (
-        <div>
+        <div id="cantidad" ref={cantidadRef}>
           {menu.cantidad < 1 && (
             <p className="text-red-600 animate-pulse">
               Selecciona una cantidad
