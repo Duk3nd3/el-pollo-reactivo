@@ -39,7 +39,7 @@ const CarritoCompras = () => {
             </ul>
           </div>
           <button
-            onClick={() => dispatch(resetCart)}
+            onClick={() => dispatch(resetCart([]))}
             className="bg-red-600 p-1 text-white font-semibold rounded-md"
           >
             Eliminar carrito
