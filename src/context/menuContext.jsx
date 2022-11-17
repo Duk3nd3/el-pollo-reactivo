@@ -1,25 +1,34 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../features/cart/cartSlice";
+import {
+  addIngredientePrincipal,
+  addGuarnicion,
+  addCantidad,
+  addPrecio,
+  addId,
+  resetMenu,
+  addPreparacionSeleccionada,
+  addIngredienteSeleccionado,
+  addTipoDeMenuSeleccionado,
+} from "../features/menu/menuSlice";
 import { db } from "../firebase";
 import { collection, query, onSnapshot } from "firebase/firestore";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../features/cart/cartSlice";
-export const menuContext = createContext();
 
+export const menuContext = createContext();
 export const useMenu = () => {
   const context = useContext(menuContext);
   return context;
 };
 
 export function MenuProvider({ children }) {
+  const menu = useSelector((state) => state.menu);
   const dispatch = useDispatch();
 
-  const [menu, setMenu] = useState({
-    ingredientePrincipal: "",
-    guarnicion: "",
-    cantidad: 0,
-    precio: 0,
-    id: "",
-  });
+  const [ingredientes, setIngredientes] = useState([]);
+  const [preparaciones, setPreparaciones] = useState([]);
+  const [guarniciones, setGuarniciones] = useState([]);
+  const [tipoDeComidas, setTipoDeComidas] = useState([]);
 
   const [contadorEmpanadas, setContadorEmpanadas] = useState({
     carne: 0,
@@ -28,42 +37,26 @@ export function MenuProvider({ children }) {
     verdura: 0,
     caprese: 0,
   });
-
   const [contadorTartas, setContadorTartas] = useState({
     jamonCompleta: 0,
     jamon: 0,
     pollo: 0,
     verdura: 0,
   });
-
-  const [preparaciones, setPreparaciones] = useState([]);
-  const [guarniciones, setGuarniciones] = useState([]);
-  const [tipoDeComidas, setTipoDeComidas] = useState([]);
-  const [comidas, setComidas] = useState([]);
   const [saboresDeEmpanadas, setSaboresDeEmpanadas] = useState([]);
   const [saboresDeTartas, setSaboresDeTartas] = useState([]);
 
-  const [tipoDeComidaSeleccionada, setTipoDeComidaSeleccionada] = useState("");
-  const [tipoMenuSeleccionado, setTipoMenuSeleccionado] = useState("");
-  const [preparacionSeleccionada, setPreparacionSeleccionada] = useState("");
-  const [guarnicionSeleccionada, setGuarnicionSeleccionada] = useState("");
-
-  // useEffect(() => {
-  //   console.log(menu);
-  //   console.log(contadorTartas);
-  // }, [menu, contadorTartas]);
-
   useEffect(() => {
-    const q = query(collection(db, "tipo de comidas"));
+    const q = query(collection(db, "ingrediente principal"));
     const unsubcribe = onSnapshot(
       q,
       (db,
       (querySnapshot) => {
-        let comidasArray = [];
+        let ingredientesArray = [];
         querySnapshot.forEach((doc) => {
-          comidasArray.push({ ...doc.data(), id: doc.id });
+          ingredientesArray.push({ ...doc.data(), id: doc.id });
         });
-        setComidas(comidasArray);
+        setIngredientes(ingredientesArray);
       })
     );
     return () => unsubcribe();
@@ -117,97 +110,53 @@ export function MenuProvider({ children }) {
     return () => unsubcribe();
   }, []);
 
-  const resetearMenu = () => {
-    setMenu({
-      ingredientePrincipal: "",
-      guarnicion: "",
-      cantidad: 0,
-      precio: 0,
-      id: "",
-    });
-    setTipoDeComidaSeleccionada("");
-    setTipoMenuSeleccionado("");
-    setPreparacionSeleccionada("");
-    setGuarnicionSeleccionada("");
-  };
-
   const handleTipoDeComidas = (tipoComida) => {
-    setTipoDeComidaSeleccionada(tipoComida);
-
+    dispatch(addTipoDeMenuSeleccionado(tipoComida));
     if (tipoComida !== "menu personalizado") {
-      const preparacionTipoComida = comidas.filter(
+      const preparacionTipoComida = tipoDeComidas.filter(
         (comida) => comida.nombre === tipoComida
       );
-
       if (tipoComida === "empanadas") {
         setSaboresDeEmpanadas(preparacionTipoComida[0].sabores);
       }
       if (tipoComida === "tartas") {
         setSaboresDeTartas(preparacionTipoComida[0].sabor);
       }
-      setMenu({
-        ...menu,
-        ingredientePrincipal: preparacionTipoComida[0].nombre,
-        guarnicion: "",
-        precio: preparacionTipoComida[0].precio,
-        id: preparacionTipoComida[0]?.id,
-      });
+      dispatch(addIngredientePrincipal(preparacionTipoComida[0].nombre));
+      dispatch(addPrecio(preparacionTipoComida[0].precio));
+      dispatch(addId(preparacionTipoComida[0].id));
+    } else {
+      dispatch(addIngredientePrincipal(""));
+      dispatch(addPreparacionSeleccionada(""));
+      dispatch(addGuarnicion(""));
+      dispatch(addPrecio(""));
+      dispatch(addCantidad(""));
     }
   };
 
-  const handleTipoMenuSeleccionado = (tipo) => {
-    setTipoMenuSeleccionado(tipo);
-    setPreparacionSeleccionada("");
-    setGuarnicionSeleccionada("");
+  const seleccionarIngrediente = (ingrediente) => {
+    dispatch(addIngredienteSeleccionado(ingrediente));
+    dispatch(addPreparacionSeleccionada(""));
+    dispatch(addGuarnicion(""));
   };
 
-  const handlePreparacionSeleccionada = (preparacion) => {
-    setPreparacionSeleccionada(preparacion);
-    setMenu({
-      ...menu,
-      ingredientePrincipal: preparacion.nombre,
-      precio: preparacion.precio,
-      id: preparacion.id,
-    });
-    setGuarnicionSeleccionada("");
+  const seleccionarPreparacion = (preparacion) => {
+    dispatch(addPreparacionSeleccionada(preparacion));
+    dispatch(addIngredientePrincipal(preparacion.nombre));
+    dispatch(addGuarnicion(""));
+    dispatch(addPrecio(preparacion.precio));
+    dispatch(addId(preparacion.id));
   };
 
-  const handleGuarnicionSeleccionada = (guarnicion) => {
-    setGuarnicionSeleccionada(guarnicion);
-    setMenu({
-      ...menu,
-      guarnicion: guarnicion.nombre,
-      id: menu.id + guarnicion.id,
-    });
+  const SeleccionarGuarnicion = (guarnicion) => {
+    dispatch(addGuarnicion(guarnicion.nombre));
+    dispatch(addId(menu.id + guarnicion.id));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addToCart({ ...menu }));
-
-    // reset menu
-    setMenu({
-      ingredientePrincipal: "",
-      guarnicion: "",
-      cantidad: 0,
-      precio: 0,
-      id: "",
-    });
-    // reset ContadorEmpandas
-    setContadorEmpanadas({
-      carne: 0,
-      jamon: 0,
-      pollo: 0,
-      verdura: 0,
-      caprese: 0,
-    });
-    // reset contadorTartas
-    setContadorTartas({ jamonCompleta: 0, jamon: 0, pollo: 0, verdura: 0 });
-    // reset selectores de comida y menu
-    setTipoDeComidaSeleccionada("");
-    setTipoMenuSeleccionado(" ");
-    setPreparacionSeleccionada("");
-    setGuarnicionSeleccionada("");
+    resetearTodoElMenu();
   };
 
   const moveIntoView = (ref) => {
@@ -216,32 +165,38 @@ export function MenuProvider({ children }) {
     }, 150);
   };
 
+  const resetearTodoElMenu = () => {
+    dispatch(resetMenu());
+    setContadorEmpanadas({
+      carne: 0,
+      jamon: 0,
+      pollo: 0,
+      verdura: 0,
+      caprese: 0,
+    });
+    setContadorTartas({ jamonCompleta: 0, jamon: 0, pollo: 0, verdura: 0 });
+  };
+
   return (
     <menuContext.Provider
       value={{
-        menu,
-        inicializarMenu: resetearMenu,
-        setMenu,
         handleSubmit,
-        handleTipoDeComidas,
-        handleTipoMenuSeleccionado,
-        handlePreparacionSeleccionada,
-        handleGuarnicionSeleccionada,
+        resetearTodoElMenu,
         moveIntoView,
-        setContadorEmpanadas,
         setContadorTartas,
-        contadorEmpanadas,
-        contadorTartas,
-        tipoDeComidas,
-        tipoDeComidaSeleccionada,
-        comidas,
-        preparaciones,
+        handleTipoDeComidas,
+        setContadorEmpanadas,
+        SeleccionarGuarnicion,
+        seleccionarPreparacion,
+        seleccionarIngrediente,
+        ingredientes,
         guarniciones,
-        tipoMenuSeleccionado,
-        preparacionSeleccionada,
-        guarnicionSeleccionada,
-        saboresDeEmpanadas,
+        preparaciones,
+        tipoDeComidas,
+        contadorTartas,
         saboresDeTartas,
+        contadorEmpanadas,
+        saboresDeEmpanadas,
       }}
     >
       {children}
