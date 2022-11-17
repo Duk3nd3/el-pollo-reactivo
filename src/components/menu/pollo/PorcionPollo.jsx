@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
-import { useMenu } from "../../../context/menuContext";
+import { useDispatch } from "react-redux";
+import { addCantidad } from "../../../features/menu/menuSlice";
 import Cantidad from "../Cantidad";
 
 const PorcionPollo = () => {
-  const { menu, setMenu } = useMenu();
+  const dispatch = useDispatch();
   const [porcion, setPorcion] = useState(0);
   const [contador, setContador] = useState(0);
 
   useEffect(() => {
-    setMenu({ ...menu, cantidad: contador * porcion });
+    dispatch(addCantidad(contador * porcion));
   }, [contador, porcion]);
+
+  const handleClick = (e) => {
+    if (e.target.innerHTML === "+") {
+      setContador(contador + 1);
+    } else if (contador > 0) {
+      setContador(contador - 1);
+    }
+  };
 
   const handleChange = (e) => {
     setPorcion(parseFloat(e.target.value));
@@ -57,7 +66,7 @@ const PorcionPollo = () => {
       {porcion > 0 && (
         <>
           <p className="text-sm text-red-500">Cantidad de porciones</p>
-          <Cantidad contador={contador} setContador={setContador} />
+          <Cantidad contador={contador} handleClick={handleClick} />
         </>
       )}
     </div>
