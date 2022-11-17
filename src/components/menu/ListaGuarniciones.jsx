@@ -1,8 +1,7 @@
-import React from "react";
 import { useMenu } from "../../context/menuContext";
 import GuarnicionCard from "./GuarnicionCard";
 
-const ListaGuarniciones = ({ handleGuarnicion }) => {
+const ListaGuarniciones = ({ handleGuarnicionSeleccionada }) => {
   const { guarniciones } = useMenu();
 
   return (
@@ -14,7 +13,7 @@ const ListaGuarniciones = ({ handleGuarnicion }) => {
         {guarniciones?.map((guarnicion, i) => (
           <GuarnicionCard
             guarnicion={guarnicion}
-            handleGuarnicion={handleGuarnicion}
+            handleGuarnicionSeleccionada={handleGuarnicionSeleccionada}
             key={guarnicion.id}
           />
         ))}
