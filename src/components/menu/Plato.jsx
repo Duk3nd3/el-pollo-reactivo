@@ -1,5 +1,3 @@
-import React from "react";
-
 const Plato = ({ seleccion, imagen, nombre, onClick }) => {
   return (
     <>
