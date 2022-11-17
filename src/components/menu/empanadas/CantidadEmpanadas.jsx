@@ -1,18 +1,22 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useMenu } from "../../../context/menuContext";
+import { addCantidad, addGuarnicion } from "../../../features/menu/menuSlice";
 
 const CantidadEmpanadas = ({ sabor }) => {
-  const { contadorEmpanadas, setContadorEmpanadas, menu, setMenu } = useMenu();
+  const dispatch = useDispatch();
+  const { contadorEmpanadas, setContadorEmpanadas } = useMenu();
 
   useEffect(() => {
-    setMenu({
-      ...menu,
-      guarnicion: { ...contadorEmpanadas },
-      cantidad: Object.values(contadorEmpanadas).reduce(
-        (previousValue, currentValue) => previousValue + currentValue,
-        0
-      ),
-    });
+    dispatch(
+      addCantidad(
+        Object.values(contadorEmpanadas).reduce(
+          (previousValue, currentValue) => previousValue + currentValue,
+          0
+        )
+      )
+    );
+    dispatch(addGuarnicion({ ...contadorEmpanadas }));
   }, [contadorEmpanadas]);
 
   const handleClick = (e) => {
