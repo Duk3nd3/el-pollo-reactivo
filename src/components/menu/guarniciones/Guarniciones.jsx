@@ -1,52 +1,48 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useMenu } from "../../../context/menuContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addCantidad } from "../../../features/menu/menuSlice";
 import Cantidad from "../Cantidad";
 import ListaGuarniciones from "../ListaGuarniciones";
-import SubmitCarritoButton from "../SubmitCarritoButton";
 
 const Guarniciones = () => {
   const cantidadRef = useRef();
+  const dispatch = useDispatch();
 
-  const {
-    menu,
-    setMenu,
-    handleSubmit,
-    moveIntoView,
-    handleGuarnicionSeleccionada,
-  } = useMenu();
-
+  const menu = useSelector((state) => state.menu);
+  const { moveIntoView, SeleccionarGuarnicion } = useMenu();
   const [contador, setContador] = useState(0);
 
   useEffect(() => {
-    setMenu({ ...menu, cantidad: contador });
+    dispatch(addCantidad(contador));
   }, [contador]);
 
-  const handleGuarnicion = (guarnicion) => {
-    handleGuarnicionSeleccionada(guarnicion);
+  const handleGuarnicionSeleccionada = (guarnicion) => {
+    SeleccionarGuarnicion(guarnicion);
     moveIntoView(cantidadRef);
   };
 
+  const handleClick = (e) => {
+    if (e.target.innerHTML === "+") {
+      setContador(contador + 1);
+    } else if (contador > 0) {
+      setContador(contador - 1);
+    }
+  };
+
   return (
-    <div className="h-screen max-w-[95%] xl:max-w-[80%] mx-auto flex flex-col items-center gap-5">
-      <ListaGuarniciones handleGuarnicion={handleGuarnicion} />
+    <div className="max-w-[95%] xl:max-w-[80%] mx-auto flex flex-col items-center gap-5">
+      <ListaGuarniciones
+        handleGuarnicionSeleccionada={handleGuarnicionSeleccionada}
+      />
       {menu.guarnicion ? (
         <div id="cantidad" ref={cantidadRef}>
-          {menu.cantidad < 1 && (
-            <p className="text-red-600 animate-pulse">
-              Selecciona una cantidad
-            </p>
-          )}
-
-          <Cantidad contador={contador} setContador={setContador} />
+          <p className="text-red-600">Selecciona una cantidad</p>
+          <Cantidad contador={contador} handleClick={handleClick} />
         </div>
       ) : (
         <p className="text-red-600 animate-pulse">Selecciona una guarnición</p>
       )}
-
-      <SubmitCarritoButton
-        handleSubmit={handleSubmit}
-        disabled={menu.cantidad > 0 ? false : true}
-      />
     </div>
   );
 };
