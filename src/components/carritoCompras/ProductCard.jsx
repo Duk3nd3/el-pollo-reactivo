@@ -3,7 +3,6 @@ import { removeFromCart } from "../../features/cart/cartSlice";
 
 const ProductCard = ({ producto }) => {
   const dispatch = useDispatch();
-
   const cambiarNombreDeSabor = (sabor) => {
     return sabor === "jamon"
       ? "jamon y queso"
