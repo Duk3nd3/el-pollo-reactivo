@@ -1,5 +1,3 @@
-import React from "react";
-
 const SubmitCarritoButton = ({ handleSubmit, disabled }) => {
   return (
     <button
