@@ -1,13 +1,11 @@
-import { useMenu } from "../../../context/menuContext";
+import { useDispatch } from "react-redux";
+import { addCantidad } from "../../../features/menu/menuSlice";
 
 const PesoTernera = () => {
-  const { menu, setMenu } = useMenu();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    setMenu({
-      ...menu,
-      cantidad: parseFloat(e.target.value),
-    });
+    dispatch(addCantidad(parseFloat(e.target.value)));
   };
 
   return (
