@@ -51,6 +51,7 @@ export const cartSlice = createSlice({
         state.splice(state.indexOf(menuExiste), 1);
       }
       localStorage.setItem("EPC-Carrito", JSON.stringify(state));
+      console.log(state.menu);
     },
 
     resetCart: () => {
