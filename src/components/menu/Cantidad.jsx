@@ -1,12 +1,4 @@
-const Cantidad = ({ contador, setContador }) => {
-  const handleClick = (e) => {
-    if (e.target.innerHTML === "+") {
-      setContador(contador + 1);
-    } else if (menu.cantidad > 0) {
-      setContador(contador - 1);
-    }
-  };
-
+const Cantidad = ({ handleClick, contador }) => {
   return (
     <>
       <div className="bg-zinc-700 order border-zinc-500 shadow-md shadow-zinc-700 my-2 w-fit mx-auto text-xl">
