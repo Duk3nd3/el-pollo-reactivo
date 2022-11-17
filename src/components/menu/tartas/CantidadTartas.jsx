@@ -1,8 +1,11 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useMenu } from "../../../context/menuContext";
+import { addCantidad, addGuarnicion } from "../../../features/menu/menuSlice";
 
 const CantidadTartas = ({ sabor }) => {
-  const { contadorTartas, setContadorTartas, menu, setMenu } = useMenu();
+  const dispatch = useDispatch();
+  const { contadorTartas, setContadorTartas } = useMenu();
 
   const cambiarNombreDeSabor = (sabor) => {
     return sabor === "jamon y queso"
@@ -13,14 +16,15 @@ const CantidadTartas = ({ sabor }) => {
   };
 
   useEffect(() => {
-    setMenu({
-      ...menu,
-      guarnicion: { ...contadorTartas },
-      cantidad: Object.values(contadorTartas).reduce(
-        (previousValue, currentValue) => previousValue + currentValue,
-        0
-      ),
-    });
+    dispatch(
+      addCantidad(
+        Object.values(contadorTartas).reduce(
+          (previousValue, currentValue) => previousValue + currentValue,
+          0
+        )
+      )
+    );
+    dispatch(addGuarnicion({ ...contadorTartas }));
   }, [contadorTartas]);
 
   const handleClick = (e) => {
