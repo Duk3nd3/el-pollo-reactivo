@@ -1,4 +1,3 @@
-import React from "react";
 import Plato from "../Plato";
 
 const TartasCard = ({ sabor }) => {
