@@ -1,8 +1,8 @@
-import { useMenu } from "../../../context/menuContext";
+import { useSelector } from "react-redux";
 import Plato from "../Plato";
 
-const PreparacionesCard = ({ preparacion, handlePreparacion }) => {
-  const { preparacionSeleccionada } = useMenu();
+const PreparacionesCard = ({ preparacion, handlePreparacionSeleccionada }) => {
+  const menu = useSelector((state) => state.menu);
 
   return (
     <li className="flex flex-col items-center">
@@ -14,9 +14,9 @@ const PreparacionesCard = ({ preparacion, handlePreparacion }) => {
               alt={preparacion.monbre}
             />
           }
-          seleccion={preparacionSeleccionada.nombre}
+          seleccion={menu.ingredientePrincipal}
           nombre={preparacion.nombre}
-          onClick={() => handlePreparacion(preparacion)}
+          onClick={() => handlePreparacionSeleccionada(preparacion)}
         />
       </div>
       <h3 className="font-semibold pt-2">{preparacion.nombre}</h3>
