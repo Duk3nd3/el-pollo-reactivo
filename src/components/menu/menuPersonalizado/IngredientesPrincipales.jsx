@@ -1,10 +1,10 @@
+import { useSelector } from "react-redux";
+import Plato from "../Plato";
 import { GiChickenOven, GiMeat, GiNoodles } from "react-icons/gi";
 import { FaFish } from "react-icons/fa";
-import Plato from "../Plato";
-import { useMenu } from "../../../context/menuContext";
 
-const TipoMenu = ({ handleTipoMenu }) => {
-  const { tipoMenuSeleccionado } = useMenu();
+const IngredientesPrincipales = ({ handleIngredienteSeleccionado }) => {
+  const menu = useSelector((state) => state.menu);
 
   return (
     <div className="max-w-[90%] m-auto flex flex-col justify-center items-center t-[220px]">
@@ -18,9 +18,9 @@ const TipoMenu = ({ handleTipoMenu }) => {
             imagen={
               <GiChickenOven className="text-yellow-700 text-7xl sm:text-8xl xl:text-9xl" />
             }
-            seleccion={tipoMenuSeleccionado}
+            seleccion={menu.ingredienteSeleccionado}
             nombre={"pollo"}
-            onClick={() => handleTipoMenu("pollo")}
+            onClick={() => handleIngredienteSeleccionado("pollo")}
           />
           <p className="text-center font-semibold capitalize">pollo</p>
         </div>
@@ -30,9 +30,9 @@ const TipoMenu = ({ handleTipoMenu }) => {
             imagen={
               <GiMeat className="text-red-800 text-7xl sm:text-8xl xl:text-9xl" />
             }
-            seleccion={tipoMenuSeleccionado}
+            seleccion={menu.ingredienteSeleccionado}
             nombre={"ternera"}
-            onClick={() => handleTipoMenu("ternera")}
+            onClick={() => handleIngredienteSeleccionado("ternera")}
           />
           <p className="text-center font-semibold capitalize">ternera</p>
         </div>
@@ -42,9 +42,9 @@ const TipoMenu = ({ handleTipoMenu }) => {
             imagen={
               <FaFish className="text-blue-900 text-7xl sm:text-8xl xl:text-9xl" />
             }
-            seleccion={tipoMenuSeleccionado}
+            seleccion={menu.ingredienteSeleccionado}
             nombre={"pescado"}
-            onClick={() => handleTipoMenu("pescado")}
+            onClick={() => handleIngredienteSeleccionado("pescado")}
           />
           <p className="text-center font-semibold capitalize">pescado</p>
         </div>
@@ -54,9 +54,9 @@ const TipoMenu = ({ handleTipoMenu }) => {
             imagen={
               <GiNoodles className="text-orange-300 text-7xl sm:text-8xl xl:text-9xl" />
             }
-            seleccion={tipoMenuSeleccionado}
+            seleccion={menu.ingredienteSeleccionado}
             nombre={"pasta"}
-            onClick={() => handleTipoMenu("pasta")}
+            onClick={() => handleIngredienteSeleccionado("pasta")}
           />
           <p className="text-center font-semibold capitalize">pasta</p>
         </div>
@@ -65,4 +65,4 @@ const TipoMenu = ({ handleTipoMenu }) => {
   );
 };
 
-export default TipoMenu;
+export default IngredientesPrincipales;
