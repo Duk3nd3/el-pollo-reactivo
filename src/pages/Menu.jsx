@@ -1,29 +1,32 @@
-import React, { useEffect, useRef } from "react";
-
+import { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import { useMenu } from "../context/menuContext";
 import TipoComidas from "../components/menu/TipoComidas";
 import MenuPersonalizado from "../components/menu/menuPersonalizado/MenuPersonalizado";
 import Pollo from "../components/menu/pollo/Pollo";
 import Ternera from "../components/menu/ternera/Ternera";
-import { useMenu } from "../context/menuContext";
 import Guarniciones from "../components/menu/guarniciones/Guarniciones";
-import Empanadas from "../components/menu/empanadas/Empanadas";
-import Tartas from "../components/menu/tartas/Tartas";
+import SubmitCarritoButton from "../components/menu/SubmitCarritoButton";
+import ListaEmpanadas from "../components/menu/empanadas/ListaEmpanadas";
+import ListaTartas from "../components/menu/tartas/ListaTartas";
 
 const Menu = () => {
+  const menu = useSelector((state) => state.menu);
+
   const tipoMenuRef = useRef();
+  const menuesRef = useRef();
   const {
-    comidas,
-    tipoDeComidaSeleccionada,
+    tipoDeComidas,
     handleTipoDeComidas,
     moveIntoView,
-    resetearMenu,
+    resetearTodoElMenu,
+    handleSubmit,
   } = useMenu();
 
   useEffect(() => {
-    resetearMenu();
+    resetearTodoElMenu();
   }, []);
 
-  //guarda la comida seleccionada y mueve la pantalla hacia la seccion correspondiente
   const handleSeleccionDeComida = (comida) => {
     handleTipoDeComidas(comida);
     moveIntoView(tipoMenuRef);
@@ -31,28 +34,41 @@ const Menu = () => {
 
   return (
     <div className="h-screen">
-      <h2 className="font-bold text-red-600 text-xl sm:text-2xl xl:text-4xl pt-[260px] b-10 text-center tracking-widest pb-20">
+      <h2
+        ref={menuesRef}
+        className="font-bold text-red-600 text-xl sm:text-2xl xl:text-4xl pt-[260px] b-10 text-center tracking-widest pb-20"
+      >
         Que te gustaria comer hoy?
       </h2>
       <ul className="max-w-[95%] xl:max-w-[80%] mx-auto flex justify-center flex-wrap gap-2 sm:gap-3 lg:gap-4 xl:gap-5 pb-10">
-        {comidas.map((comida) => (
+        {tipoDeComidas.map((tipo) => (
           <TipoComidas
-            handleComidas={handleSeleccionDeComida}
-            comida={comida}
-            key={comida.id}
+            handleSeleccionDeComida={handleSeleccionDeComida}
+            tipo={tipo}
+            key={tipo.id}
           />
         ))}
       </ul>
 
-      <div id="tipoComida" ref={tipoMenuRef} className="pt-[220px]">
-        {tipoDeComidaSeleccionada === "menu personalizado" && (
+      <div ref={tipoMenuRef} className="pt-[220px]">
+        {menu.tipoDeMenuSeleccionado === "menu personalizado" && (
           <MenuPersonalizado />
         )}
-        {tipoDeComidaSeleccionada === "carne a la parrilla" && <Ternera />}
-        {tipoDeComidaSeleccionada === "pollo a la parrilla" && <Pollo />}
-        {tipoDeComidaSeleccionada === "guarniciones" && <Guarniciones />}
-        {tipoDeComidaSeleccionada === "empanadas" && <Empanadas />}
-        {tipoDeComidaSeleccionada === "tartas" && <Tartas />}
+        {menu.tipoDeMenuSeleccionado === "carne a la parrilla" && <Ternera />}
+        {menu.tipoDeMenuSeleccionado === "pollo a la parrilla" && <Pollo />}
+        {menu.tipoDeMenuSeleccionado === "guarniciones" && <Guarniciones />}
+        {menu.tipoDeMenuSeleccionado === "empanadas" && <ListaEmpanadas />}
+        {menu.tipoDeMenuSeleccionado === "tartas" && <ListaTartas />}
+      </div>
+
+      <div className="text-center pt-4 pb-16">
+        {menu.tipoDeMenuSeleccionado &&
+        menu.tipoDeMenuSeleccionado !== "menu personalizado" ? (
+          <SubmitCarritoButton
+            handleSubmit={handleSubmit}
+            disabled={menu.cantidad > 0 ? false : true}
+          />
+        ) : null}
       </div>
     </div>
   );
