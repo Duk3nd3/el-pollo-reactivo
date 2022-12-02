@@ -10,6 +10,7 @@ import Contacto from './pages/Contacto';
 import Menu from './pages/Menu';
 import RegistroLogin from './pages/RegistroLogin';
 import CarritoCompras from './pages/CarritoCompras';
+import Error404 from './pages/Error404';
 
 function App() {
 	const [modoRegLog, setmodoRegLog] = useState('registro');
@@ -42,6 +43,7 @@ function App() {
 								/>
 							}
 						/>
+						<Route path='*' element={<Error404 />} />
 					</Routes>
 				</MenuProvider>
 			</AuthProvider>
